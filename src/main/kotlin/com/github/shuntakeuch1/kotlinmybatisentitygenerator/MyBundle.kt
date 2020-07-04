@@ -1,4 +1,4 @@
-package org.jetbrains.plugins.template
+package com.github.shuntakeuch1.kotlinmybatisentitygenerator
 
 import com.intellij.AbstractBundle
 import org.jetbrains.annotations.NonNls
