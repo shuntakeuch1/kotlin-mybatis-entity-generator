@@ -11,8 +11,8 @@ class TestAction() : AnAction() {
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.getData(PlatformDataKeys.PROJECT)
+        TestDialog().show()
 //        SampleDialogWrapper().show()
-        MyForm()
 //        val txt = Messages.showInputDialog(project, "What is your name?", "Input your name", Messages.getQuestionIcon())
 //
 //        val tables = MySQLRepository().getTables()
