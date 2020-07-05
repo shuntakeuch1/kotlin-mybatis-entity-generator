@@ -16,4 +16,11 @@
         <listener class="com.github.shuntakeuch1.kotlinmybatisentitygenerator.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </projectListeners>
+    <actions>
+        <action id="Test.TestAction" class="com.github.shuntakeuch1.kotlinmybatisentitygenerator.TestAction" text="TestAction"
+                description="Action for Test">
+            <add-to-group group-id="MainMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="meta M"/>
+        </action>
+    </actions>
 </idea-plugin>

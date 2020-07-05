@@ -40,6 +40,8 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.10.0")
+    implementation(kotlin("script-runtime"))
+    implementation("mysql:mysql-connector-java:5.1.34")
 }
 
 // Configure gradle-intellij-plugin plugin.
