@@ -11,14 +11,16 @@ class TestAction() : AnAction() {
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.getData(PlatformDataKeys.PROJECT)
-        val txt = Messages.showInputDialog(project, "What is your name?", "Input your name", Messages.getQuestionIcon())
-
-        val tables = MySQLRepository().getTables()
-        val eg = EntityGenerator()
-        if (txt != null){
-            eg.targetDirectory = txt
-        }
-        eg.execute(tables)
-        Messages.showMessageDialog(project, "Hello, $txt!\n I am glad to see you.", "Information", Messages.getInformationIcon())
+//        SampleDialogWrapper().show()
+        MyForm()
+//        val txt = Messages.showInputDialog(project, "What is your name?", "Input your name", Messages.getQuestionIcon())
+//
+//        val tables = MySQLRepository().getTables()
+//        val eg = EntityGenerator()
+//        if (txt != null){
+//            eg.targetDirectory = txt
+//        }
+//        eg.execute(tables)
+//        Messages.showMessageDialog(project, "Hello, $txt!\n I am glad to see you.", "Information", Messages.getInformationIcon())
     }
 }
