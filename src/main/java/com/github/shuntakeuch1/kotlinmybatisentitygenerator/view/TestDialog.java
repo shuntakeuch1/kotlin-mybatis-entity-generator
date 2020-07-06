@@ -1,4 +1,4 @@
-package com.github.shuntakeuch1.kotlinmybatisentitygenerator;
+package com.github.shuntakeuch1.kotlinmybatisentitygenerator.view;
 
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.entity.Table;
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.repository.MySQLRepository;

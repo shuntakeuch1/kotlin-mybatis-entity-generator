@@ -1,11 +1,9 @@
 package com.github.shuntakeuch1.kotlinmybatisentitygenerator;
 
-import com.github.shuntakeuch1.kotlinmybatisentitygenerator.generator.EntityGenerator
-import com.github.shuntakeuch1.kotlinmybatisentitygenerator.repository.MySQLRepository
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.view.TestDialog
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys
-import com.intellij.openapi.ui.Messages
 
 class TestAction() : AnAction() {
 
