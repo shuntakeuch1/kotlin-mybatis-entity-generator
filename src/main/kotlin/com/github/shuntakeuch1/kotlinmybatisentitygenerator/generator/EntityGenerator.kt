@@ -34,7 +34,7 @@ class EntityGenerator {
                     fieldVariablesString += ","
                 }
             }
-            pw.println("package $targetDirectory \n")
+            ///pw.println("package $targetDirectory \n")
             pw.println("class $className ($fieldVariablesString \n)")
             pw.flush()
             pw.close()

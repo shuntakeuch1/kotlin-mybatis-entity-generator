@@ -1,11 +1,14 @@
 package com.github.shuntakeuch1.kotlinmybatisentitygenerator.view;
 
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.entity.Table;
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.generator.EntityGenerator;
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.repository.MySQLRepository;
 import com.intellij.openapi.ui.DialogWrapper;
+import com.intellij.ui.AddEditRemovePanel;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.List;
@@ -23,16 +26,17 @@ public class TestDialog extends DialogWrapper {
     private JLabel passwordLabel;
     private JLabel userLabel;
     private JComboBox databaseComboBox;
-    private JTable table1;
     private JButton fileSelectButton;
     private JTextField directoryTextField;
     private JButton createButton;
     private JTable mysqlTable;
+    private List<Table> tables;
 
     public TestDialog() {
         super(true);
         fileSelectButton.addActionListener(this::actionPerformed);
         connectButton.addActionListener(this::connectActionPerformed);
+        createButton.addActionListener(this::createActionPerformed);
         databaseComboBox.addItem("mysql");
         databaseComboBox.setSelectedIndex(0);
         init();
@@ -44,7 +48,7 @@ public class TestDialog extends DialogWrapper {
         int selected = filechooser.showOpenDialog(createCenterPanel());
         if (selected == JFileChooser.APPROVE_OPTION) {
             File file = filechooser.getSelectedFile();
-            directoryTextField.setText(file.getName());
+            directoryTextField.setText(file.getAbsolutePath());
         } else if (selected == JFileChooser.CANCEL_OPTION) {
 //            label.setText("キャンセルされました");
         } else if (selected == JFileChooser.ERROR_OPTION) {
@@ -52,10 +56,33 @@ public class TestDialog extends DialogWrapper {
         }
     }
 
-    private void connectActionPerformed(ActionEvent e){
+    private void connectActionPerformed(ActionEvent e) {
         System.out.println(url.getText());
         MySQLRepository repository = new MySQLRepository();
-        List<Table> tables = repository.getTables();
+        tables = repository.getTables();
+
+        String[] columnNames = {"Table Name"};
+        String[][] data = new String[tables.size()][1];
+        int index = 0;
+        for (Table table: tables){
+            data[index][0] = table.getName();
+            index++;
+        }
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
+            // 編集不可にする
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        mysqlTable.setModel(tableModel);
+
+    }
+
+    private void createActionPerformed(ActionEvent e) { ;
+        EntityGenerator eg = new EntityGenerator();
+        eg.setTargetDirectory(directoryTextField.getText());
+        eg.execute(tables);
     }
 
     @Override
