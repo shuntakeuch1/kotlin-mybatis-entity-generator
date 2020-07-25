@@ -29,12 +29,11 @@ class EntityGenerator {
             var fieldVariablesString = ""
             val columnLastIndex = it.columns.lastIndex
             for ((index, column) in it.columns.withIndex()) {
-                fieldVariablesString += "\n val ${column.field.toString()}: ${column.typeConverter()}"
+                fieldVariablesString += "\n val " + column.field.toString() + ": " + column.typeConverter()
                 if (index != columnLastIndex) {
                     fieldVariablesString += ","
                 }
             }
-            ///pw.println("package $targetDirectory \n")
             pw.println("class $className ($fieldVariablesString \n)")
             pw.flush()
             pw.close()

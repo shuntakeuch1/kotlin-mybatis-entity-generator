@@ -9,12 +9,16 @@ class Column(
     val extra: String
 ) {
     fun typeConverter(): String {
-        if (type.startsWith("int")) {
-            return "Int"
+        return when {
+            type.startsWith("int") -> {
+                "Int"
+            }
+            type.startsWith("varchar") -> {
+                "String"
+            }
+            else -> {
+                type
+            }
         }
-        if (type.startsWith("varchar")) {
-            return "String"
-        }
-        return type
     }
 }
