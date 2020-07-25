@@ -64,12 +64,12 @@ private fun GeneratorDialog.connectActionPerformed(e: ActionEvent) {
     println(url.text)
     /** table connection */
     val repository = MySQLRepository()
-    tables = repository.getTables();
+    tables = repository.getTables()
 
     /** draw table name */
     val columnNames = arrayOf("Table Name")
     val data = Array(tables.size) { arrayOfNulls<String>(1) }
-    var index = 0;
+    var index = 0
     tables.forEach { table ->
         data[index][0] = table.name
         index++
