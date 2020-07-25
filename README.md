@@ -9,6 +9,8 @@ Generate a mapping class for a single table.
 
 <!-- Plugin description end -->
 
+<p><img src="images/demo_v002.gif" width="100%" height="50%"></p>
+
 ## Installation
 
 - Using IDE built-in plugin system:
@@ -20,7 +22,6 @@ Generate a mapping class for a single table.
 
   Download the [latest release](https://github.com/shuntakeuch1/kotlin-mybatis-entity-generator/releases/latest) and install it manually using
   <kbd>Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
-
 
 ---
 Plugin based on the [IntelliJ Platform Plugin Template][template].
