@@ -4,7 +4,6 @@ import com.github.shuntakeuch1.kotlinmybatisentitygenerator.entity.Table;
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.generator.EntityGenerator;
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.repository.MySQLRepository;
 import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.ui.AddEditRemovePanel;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
@@ -34,12 +33,15 @@ public class GeneratorDialog extends DialogWrapper {
 
     public GeneratorDialog() {
         super(true);
+        GeneratorDialogDelegate.init(this);
         fileSelectButton.addActionListener(this::actionPerformed);
         connectButton.addActionListener(this::connectActionPerformed);
         createButton.addActionListener(this::createActionPerformed);
-        databaseComboBox.addItem("mysql");
-        databaseComboBox.setSelectedIndex(0);
         init();
+    }
+
+    JComboBox getDatabaseComboBox(){
+        return databaseComboBox;
     }
 
     private void actionPerformed(ActionEvent e) {
