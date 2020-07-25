@@ -9,7 +9,6 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
-import java.io.File;
 import java.util.List;
 
 public class GeneratorDialog extends DialogWrapper {
@@ -34,7 +33,6 @@ public class GeneratorDialog extends DialogWrapper {
     public GeneratorDialog() {
         super(true);
         GeneratorDialogDelegate.init(this);
-        fileSelectButton.addActionListener(this::actionPerformed);
         connectButton.addActionListener(this::connectActionPerformed);
         createButton.addActionListener(this::createActionPerformed);
         init();
@@ -44,18 +42,8 @@ public class GeneratorDialog extends DialogWrapper {
         return databaseComboBox;
     }
 
-    private void actionPerformed(ActionEvent e) {
-        JFileChooser filechooser = new JFileChooser();
-        filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int selected = filechooser.showOpenDialog(createCenterPanel());
-        if (selected == JFileChooser.APPROVE_OPTION) {
-            File file = filechooser.getSelectedFile();
-            directoryTextField.setText(file.getAbsolutePath());
-        } else if (selected == JFileChooser.CANCEL_OPTION) {
-//            label.setText("キャンセルされました");
-        } else if (selected == JFileChooser.ERROR_OPTION) {
-//            label.setText("エラー又は取消しがありました");
-        }
+    JButton getFileSelectButton() {
+        return fileSelectButton;
     }
 
     private void connectActionPerformed(ActionEvent e) {
@@ -88,7 +76,11 @@ public class GeneratorDialog extends DialogWrapper {
     }
 
     @Override
-    protected @Nullable JComponent createCenterPanel() {
+    protected  @Nullable JComponent createCenterPanel() {
         return contentPane;
+    }
+
+    public JTextField getDirectoryTextField() {
+        return directoryTextField;
     }
 }
