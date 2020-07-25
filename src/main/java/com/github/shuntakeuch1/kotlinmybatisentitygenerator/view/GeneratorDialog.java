@@ -2,12 +2,10 @@ package com.github.shuntakeuch1.kotlinmybatisentitygenerator.view;
 
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.entity.Table;
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.generator.EntityGenerator;
-import com.github.shuntakeuch1.kotlinmybatisentitygenerator.repository.MySQLRepository;
 import com.intellij.openapi.ui.DialogWrapper;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
@@ -33,40 +31,12 @@ public class GeneratorDialog extends DialogWrapper {
     public GeneratorDialog() {
         super(true);
         GeneratorDialogDelegate.init(this);
-        connectButton.addActionListener(this::connectActionPerformed);
         createButton.addActionListener(this::createActionPerformed);
         init();
     }
 
-    JComboBox getDatabaseComboBox(){
-        return databaseComboBox;
-    }
-
-    JButton getFileSelectButton() {
-        return fileSelectButton;
-    }
-
-    private void connectActionPerformed(ActionEvent e) {
-        System.out.println(url.getText());
-        MySQLRepository repository = new MySQLRepository();
-        tables = repository.getTables();
-
-        String[] columnNames = {"Table Name"};
-        String[][] data = new String[tables.size()][1];
-        int index = 0;
-        for (Table table: tables){
-            data[index][0] = table.getName();
-            index++;
-        }
-        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
-            // 編集不可にする
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        mysqlTable.setModel(tableModel);
-
+    JButton getCreateButton() {
+        return createButton;
     }
 
     private void createActionPerformed(ActionEvent e) { ;
@@ -75,12 +45,33 @@ public class GeneratorDialog extends DialogWrapper {
         eg.execute(tables);
     }
 
+    JComboBox getDatabaseComboBox(){
+        return databaseComboBox;
+    }
+
     @Override
     protected  @Nullable JComponent createCenterPanel() {
         return contentPane;
     }
 
-    public JTextField getDirectoryTextField() {
+    JButton getFileSelectButton() {
+        return fileSelectButton;
+    }
+
+    JTextField getDirectoryTextField() {
         return directoryTextField;
+    }
+
+
+    JButton getConnectButton() {
+        return connectButton;
+    }
+
+    JTextField getUrl() {
+        return url;
+    }
+
+    JTable getMysqlTable() {
+        return mysqlTable;
     }
 }

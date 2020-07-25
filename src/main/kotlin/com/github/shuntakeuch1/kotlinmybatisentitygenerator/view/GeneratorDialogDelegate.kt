@@ -2,15 +2,24 @@
 
 package com.github.shuntakeuch1.kotlinmybatisentitygenerator.view
 
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.repository.MySQLRepository
 import java.awt.event.ActionEvent
 import javax.swing.JFileChooser
+import javax.swing.table.DefaultTableModel
 
 fun init(dialog: GeneratorDialog) {
     dialog.apply {
-        fileSelectButton.addActionListener {
-            actionPerformed(it)
-        }
+        initActionLisner()
         initComboBox()
+    }
+}
+
+private fun GeneratorDialog.initActionLisner() {
+    fileSelectButton.addActionListener {
+        actionPerformed(it)
+    }
+    connectButton.addActionListener {
+        connectActionPerformed(it)
     }
 }
 
@@ -19,13 +28,17 @@ private fun GeneratorDialog.initComboBox() {
     databaseComboBox.selectedIndex = 0
 }
 
+/**
+ * File Select Action
+ * @param e
+ */
 private fun GeneratorDialog.actionPerformed(e: ActionEvent) {
-    val filechooser = JFileChooser()
-    filechooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
+    val fileChooser = JFileChooser()
+    fileChooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
 
-    val selected = filechooser.showOpenDialog(createCenterPanel())
+    val selected = fileChooser.showOpenDialog(createCenterPanel())
     if (selected == JFileChooser.APPROVE_OPTION) {
-        val file = filechooser.selectedFile
+        val file = fileChooser.selectedFile
         directoryTextField.text = file.absolutePath
     } else if (selected == JFileChooser.CANCEL_OPTION) {
 //            label.setText("キャンセルされました");
@@ -33,3 +46,31 @@ private fun GeneratorDialog.actionPerformed(e: ActionEvent) {
 //            label.setText("エラー又は取消しがありました");
     }
 }
+
+/**
+ * Draw Table View
+ * with Connect Button Acition
+ * @param e
+ */
+private fun GeneratorDialog.connectActionPerformed(e: ActionEvent) {
+    println(url.text)
+    /** table connection */
+    val repository = MySQLRepository()
+    val tables = repository.getTables();
+
+    /** draw table name */
+    val columnNames = arrayOf("Table Name")
+    val data = Array(tables.size) { arrayOfNulls<String>(1) }
+    var index = 0;
+    tables.forEach { table ->
+        data[index][0] = table.name
+        index++
+    }
+    val tableModel = object : DefaultTableModel(data, columnNames) {
+        override fun isCellEditable(row: Int, column: Int): Boolean {
+            return false
+        }
+    }
+    mysqlTable.model = tableModel
+}
+
