@@ -17,10 +17,10 @@
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </projectListeners>
     <actions>
-        <action id="Test.TestAction" class="com.github.shuntakeuch1.kotlinmybatisentitygenerator.GeneratorFormShowAction" text="TestAction"
-                description="Action for Test">
+        <action id="Test.TestAction" class="com.github.shuntakeuch1.kotlinmybatisentitygenerator.GeneratorFormShowAction"
+                text="Kotlin MyBatis Generator"
+                description="Action for Kotlin Mybatis Generator Show Window">
             <add-to-group group-id="MainMenu" anchor="first"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="meta M"/>
         </action>
     </actions>
 </idea-plugin>
