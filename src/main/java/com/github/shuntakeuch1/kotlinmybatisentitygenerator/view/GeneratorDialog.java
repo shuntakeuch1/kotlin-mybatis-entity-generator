@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.List;
 
-public class TestDialog extends DialogWrapper {
+public class GeneratorDialog extends DialogWrapper {
     private JPanel contentPane;
     private JButton connectButton;
     private JButton buttonCancel;
@@ -32,7 +32,7 @@ public class TestDialog extends DialogWrapper {
     private JTable mysqlTable;
     private List<Table> tables;
 
-    public TestDialog() {
+    public GeneratorDialog() {
         super(true);
         fileSelectButton.addActionListener(this::actionPerformed);
         connectButton.addActionListener(this::connectActionPerformed);
