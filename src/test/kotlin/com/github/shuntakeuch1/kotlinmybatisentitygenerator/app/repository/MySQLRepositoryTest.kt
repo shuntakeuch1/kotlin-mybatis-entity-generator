@@ -1,13 +1,13 @@
 package com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository
 
-import org.junit.Test
 import kotlin.test.assertNotNull
+import org.junit.Test
 
 class MySQLRepositoryTest {
 
     @Test
-    fun testGetTable(){
+    fun testGetTable() {
         val repository = MySQLRepository()
-        assertNotNull(repository.getTables(),"")
+        assertNotNull(repository.getTables(), "")
     }
 }
