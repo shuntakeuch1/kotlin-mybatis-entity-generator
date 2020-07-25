@@ -9,7 +9,7 @@ class ShowMybatisGeneratorAction : AnAction() {
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.getData(PlatformDataKeys.PROJECT)
-        if (GeneratorDialog().showAndGet()) {
+        if (GeneratorDialog(project).showAndGet()) {
             println("end form")
         }
     }

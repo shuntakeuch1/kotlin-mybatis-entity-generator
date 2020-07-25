@@ -1,5 +1,6 @@
 package com.github.shuntakeuch1.kotlinmybatisentitygenerator.view;
 
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,9 +23,11 @@ public class GeneratorDialog extends DialogWrapper {
     private JTextField directoryTextField;
     private JButton createButton;
     private JTable mysqlTable;
+    private final String projectBasePath;
 
-    public GeneratorDialog() {
-        super(true);
+    public GeneratorDialog(Project project) {
+        super(project);
+        projectBasePath = project.getBasePath();
         GeneratorDialogDelegate.init(this);
         init();
     }
@@ -61,5 +64,9 @@ public class GeneratorDialog extends DialogWrapper {
 
     JButton getCreateButton() {
         return createButton;
+    }
+
+    public String getProjectBasePath() {
+        return projectBasePath;
     }
 }

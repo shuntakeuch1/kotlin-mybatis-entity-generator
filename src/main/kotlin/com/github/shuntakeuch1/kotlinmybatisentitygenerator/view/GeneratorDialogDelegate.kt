@@ -14,14 +14,14 @@ private var tables: List<Table> = mutableListOf()
 
 fun init(dialog: GeneratorDialog) {
     dialog.apply {
-        initActionListenner()
+        initActionListener()
         initComboBox()
     }
 }
 
-private fun GeneratorDialog.initActionListenner() {
+private fun GeneratorDialog.initActionListener() {
     fileSelectButton.addActionListener {
-        actionPerformed(it)
+        fileSelectActionPerformed(it)
     }
     connectButton.addActionListener {
         connectActionPerformed(it)
@@ -40,8 +40,10 @@ private fun GeneratorDialog.initComboBox() {
  * File Select Action
  * @param e
  */
-private fun GeneratorDialog.actionPerformed(e: ActionEvent) {
-    val fileChooser = JFileChooser()
+private fun GeneratorDialog.fileSelectActionPerformed(e: ActionEvent) {
+
+    /** Pop Up file selection dialog */
+    val fileChooser = JFileChooser(projectBasePath)
     fileChooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
 
     val selected = fileChooser.showOpenDialog(createCenterPanel())
