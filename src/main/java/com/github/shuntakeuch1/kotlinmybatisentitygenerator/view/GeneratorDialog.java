@@ -1,13 +1,9 @@
 package com.github.shuntakeuch1.kotlinmybatisentitygenerator.view;
 
-import com.github.shuntakeuch1.kotlinmybatisentitygenerator.entity.Table;
-import com.github.shuntakeuch1.kotlinmybatisentitygenerator.generator.EntityGenerator;
 import com.intellij.openapi.ui.DialogWrapper;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.util.List;
 
 public class GeneratorDialog extends DialogWrapper {
     private JPanel contentPane;
@@ -26,31 +22,19 @@ public class GeneratorDialog extends DialogWrapper {
     private JTextField directoryTextField;
     private JButton createButton;
     private JTable mysqlTable;
-    private List<Table> tables;
 
     public GeneratorDialog() {
         super(true);
         GeneratorDialogDelegate.init(this);
-        createButton.addActionListener(this::createActionPerformed);
         init();
     }
 
-    JButton getCreateButton() {
-        return createButton;
-    }
-
-    private void createActionPerformed(ActionEvent e) { ;
-        EntityGenerator eg = new EntityGenerator();
-        eg.setTargetDirectory(directoryTextField.getText());
-        eg.execute(tables);
-    }
-
-    JComboBox getDatabaseComboBox(){
+    JComboBox getDatabaseComboBox() {
         return databaseComboBox;
     }
 
     @Override
-    protected  @Nullable JComponent createCenterPanel() {
+    protected @Nullable JComponent createCenterPanel() {
         return contentPane;
     }
 
@@ -73,5 +57,9 @@ public class GeneratorDialog extends DialogWrapper {
 
     JTable getMysqlTable() {
         return mysqlTable;
+    }
+
+    JButton getCreateButton() {
+        return createButton;
     }
 }

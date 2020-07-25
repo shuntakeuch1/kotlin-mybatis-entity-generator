@@ -2,24 +2,32 @@
 
 package com.github.shuntakeuch1.kotlinmybatisentitygenerator.view
 
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.entity.Table
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.generator.EntityGenerator
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.repository.MySQLRepository
 import java.awt.event.ActionEvent
 import javax.swing.JFileChooser
 import javax.swing.table.DefaultTableModel
 
+/** connection table data */
+private var tables: List<Table> = mutableListOf()
+
 fun init(dialog: GeneratorDialog) {
     dialog.apply {
-        initActionLisner()
+        initActionListenner()
         initComboBox()
     }
 }
 
-private fun GeneratorDialog.initActionLisner() {
+private fun GeneratorDialog.initActionListenner() {
     fileSelectButton.addActionListener {
         actionPerformed(it)
     }
     connectButton.addActionListener {
         connectActionPerformed(it)
+    }
+    createButton.addActionListener {
+        createActionPerformed(it)
     }
 }
 
@@ -56,7 +64,7 @@ private fun GeneratorDialog.connectActionPerformed(e: ActionEvent) {
     println(url.text)
     /** table connection */
     val repository = MySQLRepository()
-    val tables = repository.getTables();
+    tables = repository.getTables();
 
     /** draw table name */
     val columnNames = arrayOf("Table Name")
@@ -74,3 +82,13 @@ private fun GeneratorDialog.connectActionPerformed(e: ActionEvent) {
     mysqlTable.model = tableModel
 }
 
+/**
+ * Entity File Generate
+ * with Create Action Button
+ * @param e
+ */
+private fun GeneratorDialog.createActionPerformed(e: ActionEvent) {
+    val eg = EntityGenerator()
+    eg.targetDirectory = directoryTextField.text
+    eg.execute(tables = tables)
+}
