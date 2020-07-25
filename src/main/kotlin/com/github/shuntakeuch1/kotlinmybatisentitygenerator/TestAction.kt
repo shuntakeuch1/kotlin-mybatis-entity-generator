@@ -9,7 +9,9 @@ class TestAction() : AnAction() {
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.getData(PlatformDataKeys.PROJECT)
-        TestDialog().show()
+        if (TestDialog().showAndGet()) {
+            println("success")
+        }
 //        SampleDialogWrapper().show()
 //        val txt = Messages.showInputDialog(project, "What is your name?", "Input your name", Messages.getQuestionIcon())
 //
