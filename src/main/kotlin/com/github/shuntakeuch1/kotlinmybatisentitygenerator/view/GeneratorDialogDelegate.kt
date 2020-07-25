@@ -2,9 +2,9 @@
 
 package com.github.shuntakeuch1.kotlinmybatisentitygenerator.view
 
-import com.github.shuntakeuch1.kotlinmybatisentitygenerator.entity.Table
-import com.github.shuntakeuch1.kotlinmybatisentitygenerator.generator.EntityGenerator
-import com.github.shuntakeuch1.kotlinmybatisentitygenerator.repository.MySQLRepository
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.EntityGenerator
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity.Table
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository.MySQLRepository
 import java.awt.event.ActionEvent
 import javax.swing.JFileChooser
 import javax.swing.table.DefaultTableModel

@@ -1,6 +1,6 @@
-package com.github.shuntakeuch1.kotlinmybatisentitygenerator.generator
+package com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator
 
-import com.github.shuntakeuch1.kotlinmybatisentitygenerator.entity.Table
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity.Table
 import java.io.File
 import java.io.PrintWriter
 

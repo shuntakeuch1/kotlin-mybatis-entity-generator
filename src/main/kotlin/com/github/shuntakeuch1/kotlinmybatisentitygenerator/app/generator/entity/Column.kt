@@ -1,4 +1,4 @@
-package com.github.shuntakeuch1.kotlinmybatisentitygenerator.entity
+package com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity
 
 class Column(
     val field: String,

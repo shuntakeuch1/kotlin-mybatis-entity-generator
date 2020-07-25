@@ -1,7 +1,7 @@
-package com.github.shuntakeuch1.kotlinmybatisentitygenerator.repository
+package com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository
 
-import com.github.shuntakeuch1.kotlinmybatisentitygenerator.entity.Column
-import com.github.shuntakeuch1.kotlinmybatisentitygenerator.entity.Table
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity.Column
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity.Table
 import java.sql.DriverManager
 
 /**
