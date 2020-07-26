@@ -70,7 +70,7 @@ private fun GeneratorDialog.connectActionPerformed(e: ActionEvent) {
     val repository = MySQLRepository()
     val database = databaseComboBox.selectedItem
     val schema = schema.text
-    repository.jdbcURL = "jdbc:${database}://${url.text}/${schema}"
+    repository.jdbcURL = "jdbc:$database://${url.text}/$schema"
     repository.user = user.text
     repository.password = password.text
     repository.schema = schema

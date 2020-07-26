@@ -21,7 +21,7 @@ class MySQLRepository {
         var tablesName = arrayOf<String>()
 
         while (resultSet.next()) {
-            val table = resultSet.getString("Tables_in_${schema}")
+            val table = resultSet.getString("Tables_in_$schema")
             tablesName += table
         }
         val tables = tablesName.map {
