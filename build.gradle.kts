@@ -1,4 +1,5 @@
 import io.gitlab.arturbosch.detekt.Detekt
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.changelog.closure
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -110,5 +111,18 @@ tasks {
     publishPlugin {
         dependsOn("patchChangelog")
         token(System.getenv("PUBLISH_TOKEN"))
+    }
+
+    test {
+        useJUnitPlatform {
+            includeEngines("junit-jupiter")
+        }
+        reports {
+            junitXml.isEnabled = false
+            html.isEnabled = false
+        }
+        testLogging {
+            exceptionFormat = TestExceptionFormat.FULL
+        }
     }
 }
