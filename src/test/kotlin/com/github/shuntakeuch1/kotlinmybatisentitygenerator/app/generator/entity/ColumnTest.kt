@@ -40,8 +40,8 @@ class ColumnTest {
     }
 
     @ParameterizedTest
-    @MethodSource("stringDataProvider")
-    fun stringTypeConverter(expect: String, type: String, nullFlag: String) {
+    @MethodSource("typeDataProvider")
+    fun testTypeConverter(expect: String, type: String, nullFlag: String) {
         val columnType = Column(
             field = "",
             type = type,
@@ -55,14 +55,27 @@ class ColumnTest {
 
     companion object {
         @JvmStatic
-        fun stringDataProvider() = listOf(
+        fun typeDataProvider() = listOf(
+            // int
+            Arguments.of("Int", "tinyint(1)", "NO"),
+            Arguments.of("Int", "smallint(6)", "NO"),
+            Arguments.of("Int", "mediumint(9)", "NO"),
+            Arguments.of("Int", "int(10)", "NO"),
+            Arguments.of("Int", "bigint(20)", "NO"),
+            // int nullable
+            Arguments.of("Int?", "tinyint(1)", "YES"),
+            Arguments.of("Int?", "smallint(6)", "YES"),
+            Arguments.of("Int?", "mediumint(9)", "YES"),
+            Arguments.of("Int?", "int(10)", "YES"),
+            Arguments.of("Int?", "bigint(20)", "YES"),
+            // string
             Arguments.of("String", "varchar(255)", "NO"),
             Arguments.of("String", "char(255)", "NO"),
             Arguments.of("String", "binary(255)", "NO"),
             Arguments.of("String", "blob", "NO"),
             Arguments.of("String", "text", "NO"),
             Arguments.of("String", "json", "NO"),
-            // nullable
+            // string nullable
             Arguments.of("String?", "varchar(255)", "YES"),
             Arguments.of("String?", "char(255)", "YES"),
             Arguments.of("String?", "binary(255)", "YES"),

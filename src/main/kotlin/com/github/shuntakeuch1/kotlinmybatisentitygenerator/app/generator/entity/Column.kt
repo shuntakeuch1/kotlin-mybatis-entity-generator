@@ -13,11 +13,12 @@ class Column(
     private val blobRegex = Regex("blob")
     private val textRegex = Regex("text")
     private val jsonRegex = Regex("json")
+    private val intRegex = Regex("int")
 
     fun typeConverter(): String {
         val isNullFlag = nullFlag == "YES"
         val convertType = when {
-            type.startsWith("int") -> {
+            intRegex.containsMatchIn(type) -> {
                 "Int"
             }
             stringCheck(type) -> {
