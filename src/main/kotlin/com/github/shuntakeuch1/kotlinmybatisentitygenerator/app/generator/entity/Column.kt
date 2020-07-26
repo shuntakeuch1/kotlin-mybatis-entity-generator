@@ -8,12 +8,19 @@ class Column(
     val defaultFlag: String?,
     val extra: String
 ) {
+    private val charRegex = Regex("char")
+    private val binaryRegex = Regex("binary")
+    private val blobRegex = Regex("blob")
+    private val textRegex = Regex("text")
+    private val jsonRegex = Regex("json")
+
     fun typeConverter(): String {
-        return when {
+        val isNullFlag = nullFlag == "YES"
+        val convertType = when {
             type.startsWith("int") -> {
                 "Int"
             }
-            type.startsWith("varchar") -> {
+            stringCheck(type) -> {
                 "String"
             }
             type.startsWith("timestamp") -> {
@@ -23,5 +30,22 @@ class Column(
                 type
             }
         }
+        return if (isNullFlag) {
+            "$convertType?"
+        } else {
+            convertType
+        }
+    }
+
+    /**
+     * string check function
+     * @param type
+     */
+    private fun stringCheck(type: String): Boolean {
+        return charRegex.containsMatchIn(type) ||
+            binaryRegex.containsMatchIn(type) ||
+            blobRegex.containsMatchIn(type) ||
+            textRegex.containsMatchIn(type) ||
+            jsonRegex.containsMatchIn(type)
     }
 }

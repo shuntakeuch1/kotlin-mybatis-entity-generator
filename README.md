@@ -42,7 +42,7 @@ Generate a mapping class for a single table.
       <td>DATE,TIME,DATETIME,TIMESTAMP,YEAR</td>
     </tr>
     <tr>
-      <td rowspan="3">String</td>
+      <td rowspan="4">String</td>
       <td>CHAR,VARCHAR,BINARY,VARBINARY</td>
     </tr>
     <tr>
@@ -50,6 +50,9 @@ Generate a mapping class for a single table.
     </tr>
     <tr>
       <td>TINYTEXT,TEXT,MEDIUMTEXT,LONGTEXT</td>
+    </tr>
+    <tr>
+      <td>json</td>
     </tr>
   </tbody>
 </table>
