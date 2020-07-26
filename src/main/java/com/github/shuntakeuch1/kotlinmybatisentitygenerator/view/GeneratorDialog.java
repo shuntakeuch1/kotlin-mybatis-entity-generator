@@ -58,6 +58,12 @@ public class GeneratorDialog extends DialogWrapper {
         return url;
     }
 
+    JTextField getSchema() { return schema; }
+
+    JTextField getUser() { return user; }
+
+    JTextField getPassword() { return password; }
+
     JTable getMysqlTable() {
         return mysqlTable;
     }
