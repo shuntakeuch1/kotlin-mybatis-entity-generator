@@ -32,9 +32,12 @@ private fun GeneratorDialog.initActionListener() {
         createActionPerformed()
     }
 }
-
+/** support database */
+private val items = arrayOf("mysql")
 private fun GeneratorDialog.initComboBox() {
-    databaseComboBox.addItem("mysql")
+    items.forEach { item ->
+        databaseComboBox.addItem(item)
+    }
     databaseComboBox.selectedIndex = 0
 }
 
@@ -57,9 +60,16 @@ private fun GeneratorDialog.fileSelectActionPerformed() {
  * Draw Table View
  * with Connect Button Action
  */
+
 private fun GeneratorDialog.connectActionPerformed() {
     /** table connection */
     val repository = MySQLRepository()
+    val database = databaseComboBox.selectedItem
+    val schema = schema.text
+    repository.jdbcURL = "jdbc:$database://${url.text}/$schema"
+    repository.user = user.text
+    repository.password = password.text
+    repository.schema = schema
     tables = repository.getTables()
 
     /** draw table name */
