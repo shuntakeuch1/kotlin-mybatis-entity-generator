@@ -9,7 +9,7 @@ import javax.swing.*;
 public class GeneratorDialog extends DialogWrapper {
     private JPanel contentPane;
     private JButton connectButton;
-    private JButton buttonCancel;
+    private JButton cancelButton;
     private JTextField url;
     private JTextField schema;
     private JTextField user;
@@ -49,10 +49,11 @@ public class GeneratorDialog extends DialogWrapper {
         return directoryTextField;
     }
 
-
     JButton getConnectButton() {
         return connectButton;
     }
+
+    JButton getCancelButton() { return cancelButton; }
 
     JTextField getUrl() {
         return url;

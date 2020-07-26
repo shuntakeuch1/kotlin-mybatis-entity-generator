@@ -5,7 +5,6 @@ package com.github.shuntakeuch1.kotlinmybatisentitygenerator.view
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.EntityGenerator
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity.Table
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository.MySQLRepository
-import java.awt.event.ActionEvent
 import javax.swing.JFileChooser
 import javax.swing.table.DefaultTableModel
 
@@ -21,13 +20,16 @@ fun init(dialog: GeneratorDialog) {
 
 private fun GeneratorDialog.initActionListener() {
     fileSelectButton.addActionListener {
-        fileSelectActionPerformed(it)
+        fileSelectActionPerformed()
     }
     connectButton.addActionListener {
-        connectActionPerformed(it)
+        connectActionPerformed()
+    }
+    cancelButton.addActionListener {
+        clearTableActionPerformed()
     }
     createButton.addActionListener {
-        createActionPerformed(it)
+        createActionPerformed()
     }
 }
 /** support database */
@@ -41,10 +43,8 @@ private fun GeneratorDialog.initComboBox() {
 
 /**
  * File Select Action
- * @param e
  */
-private fun GeneratorDialog.fileSelectActionPerformed(e: ActionEvent) {
-
+private fun GeneratorDialog.fileSelectActionPerformed() {
     /** Pop Up file selection dialog */
     val fileChooser = JFileChooser(projectBasePath)
     fileChooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
@@ -53,19 +53,15 @@ private fun GeneratorDialog.fileSelectActionPerformed(e: ActionEvent) {
     if (selected == JFileChooser.APPROVE_OPTION) {
         val file = fileChooser.selectedFile
         directoryTextField.text = file.absolutePath
-    } else if (selected == JFileChooser.CANCEL_OPTION) {
-//            label.setText("キャンセルされました");
-    } else if (selected == JFileChooser.ERROR_OPTION) {
-//            label.setText("エラー又は取消しがありました");
     }
 }
 
 /**
  * Draw Table View
- * with Connect Button Acition
- * @param e
+ * with Connect Button Action
  */
-private fun GeneratorDialog.connectActionPerformed(e: ActionEvent) {
+
+private fun GeneratorDialog.connectActionPerformed() {
     /** table connection */
     val repository = MySQLRepository()
     val database = databaseComboBox.selectedItem
@@ -93,11 +89,18 @@ private fun GeneratorDialog.connectActionPerformed(e: ActionEvent) {
 }
 
 /**
+ * clear mysql table
+ * with Cancel Action Button
+ */
+private fun GeneratorDialog.clearTableActionPerformed() {
+    mysqlTable.model = DefaultTableModel()
+}
+
+/**
  * Entity File Generate
  * with Create Action Button
- * @param e
  */
-private fun GeneratorDialog.createActionPerformed(e: ActionEvent) {
+private fun GeneratorDialog.createActionPerformed() {
     val eg = EntityGenerator()
     eg.targetDirectory = directoryTextField.text
     eg.execute(tables = tables)
