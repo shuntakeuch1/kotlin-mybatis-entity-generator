@@ -68,6 +68,18 @@ class ColumnTest {
             Arguments.of("Int?", "mediumint(9)", "YES"),
             Arguments.of("Int?", "int(10)", "YES"),
             Arguments.of("Int?", "bigint(20)", "YES"),
+            // LocalDateTime
+            Arguments.of("LocalDateTime", "timestamp", "NO"),
+            Arguments.of("LocalDateTime", "date", "NO"),
+            Arguments.of("LocalDateTime", "time", "NO"),
+            Arguments.of("LocalDateTime", "datetime", "NO"),
+            Arguments.of("LocalDateTime", "year", "NO"),
+            // LocalDateTime nullable
+            Arguments.of("LocalDateTime?", "timestamp", "YES"),
+            Arguments.of("LocalDateTime?", "date", "YES"),
+            Arguments.of("LocalDateTime?", "time", "YES"),
+            Arguments.of("LocalDateTime?", "datetime", "YES"),
+            Arguments.of("LocalDateTime?", "year", "YES"),
             // string
             Arguments.of("String", "varchar(255)", "NO"),
             Arguments.of("String", "char(255)", "NO"),

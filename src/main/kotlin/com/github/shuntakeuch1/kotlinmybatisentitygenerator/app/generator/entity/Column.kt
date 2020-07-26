@@ -8,12 +8,12 @@ class Column(
     val defaultFlag: String?,
     val extra: String
 ) {
+    private val intRegex = Regex("int")
     private val charRegex = Regex("char")
     private val binaryRegex = Regex("binary")
     private val blobRegex = Regex("blob")
     private val textRegex = Regex("text")
     private val jsonRegex = Regex("json")
-    private val intRegex = Regex("int")
 
     fun typeConverter(): String {
         val isNullFlag = nullFlag == "YES"
@@ -24,7 +24,7 @@ class Column(
             stringCheck(type) -> {
                 "String"
             }
-            type.startsWith("timestamp") -> {
+            localDateTimeCheck(type) -> {
                 "LocalDateTime"
             }
             else -> {
@@ -36,6 +36,16 @@ class Column(
         } else {
             convertType
         }
+    }
+
+    /**
+     * local date time check function
+     * @param type
+     */
+    private fun localDateTimeCheck(type: String): Boolean {
+        return type.startsWith("time") ||
+            type.startsWith("date") ||
+            type.startsWith("year")
     }
 
     /**
