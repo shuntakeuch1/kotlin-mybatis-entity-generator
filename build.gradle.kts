@@ -42,6 +42,7 @@ dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.10.0")
     implementation(kotlin("script-runtime"))
     implementation("mysql:mysql-connector-java:5.1.34")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
 }
 
 // Configure gradle-intellij-plugin plugin.
