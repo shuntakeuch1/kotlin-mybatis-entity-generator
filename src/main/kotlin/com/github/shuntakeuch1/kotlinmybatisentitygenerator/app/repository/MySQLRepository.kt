@@ -8,11 +8,10 @@ import java.sql.DriverManager
  * DB Access
  */
 class MySQLRepository {
-    companion object {
-        const val jdbcURL = "jdbc:mysql://127.0.0.1/example"
-        const val user = "root"
-        const val password = "root"
-    }
+    lateinit var jdbcURL: String
+    lateinit var user: String
+    lateinit var password: String
+    lateinit var schema: String
 
     fun getTables(): List<Table> {
         Class.forName("com.mysql.jdbc.Driver")
@@ -22,7 +21,7 @@ class MySQLRepository {
         var tablesName = arrayOf<String>()
 
         while (resultSet.next()) {
-            val table = resultSet.getString("Tables_in_example")
+            val table = resultSet.getString("Tables_in_${schema}")
             tablesName += table
         }
         val tables = tablesName.map {
