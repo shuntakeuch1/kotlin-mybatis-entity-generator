@@ -16,6 +16,9 @@ class Column(
             type.startsWith("varchar") -> {
                 "String"
             }
+            type.startsWith("timestamp") -> {
+                "LocalDateTime"
+            }
             else -> {
                 type
             }

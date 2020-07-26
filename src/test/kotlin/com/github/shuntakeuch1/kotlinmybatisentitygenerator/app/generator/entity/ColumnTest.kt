@@ -7,14 +7,37 @@ class ColumnTest {
 
     @Test
     fun tesTypeConvert() {
-        val column = Column(
+        val columnType = Column(
             field = "",
-            type = "",
+            type = "varchar(10)",
             nullFlag = "",
             key = "",
             defaultFlag = "",
             extra = ""
         )
-        assertEquals("", column.typeConverter())
+        val intColumnType = Column(
+            field = "",
+            type = "int(11)",
+            nullFlag = "",
+            key = "",
+            defaultFlag = "",
+            extra = ""
+        )
+        val localDateTimeColumnType = Column(
+            field = "",
+            type = "timestamp",
+            nullFlag = "",
+            key = "",
+            defaultFlag = "",
+            extra = ""
+        )
+        assertEquals("String", columnType.typeConverter())
+        assertEquals("Int", intColumnType.typeConverter())
+        assertEquals("LocalDateTime", localDateTimeColumnType.typeConverter())
     }
+
+//    @ParameterizedTest
+//    fun stringTypeConverter() {
+//        assertEquals("String", columnType.typeConverter())
+//    }
 }
