@@ -1,6 +1,6 @@
 package com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class MySQLRepositoryTest {
 
