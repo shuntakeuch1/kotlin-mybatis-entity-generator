@@ -1,8 +1,8 @@
 # kotlin-mybatis-entity-generator
 
 ![Build](https://github.com/shuntakeuch1/kotlin-mybatis-entity-generator/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/14770-kotlin-mybatis-entity-generator)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/14770-kotlin-mybatis-entity-generator)
+[![Version](https://img.shields.io/jetbrains/plugin/v/14770-kotlin-mybatis-entity-generator.svg)](https://plugins.jetbrains.com/plugin/14770-kotlin-mybatis-entity-generator)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/14770-kotlin-mybatis-entity-generator.svg)](https://plugins.jetbrains.com/plugin/14770-kotlin-mybatis-entity-generator)
 
 <!-- Plugin description -->
 Generate a mapping class for a single table.
