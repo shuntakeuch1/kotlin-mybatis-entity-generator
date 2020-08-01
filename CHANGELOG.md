@@ -5,6 +5,11 @@
 ## [Unreleased]
 
 ## [0.0.4]
+
+### Changed
+- changed file name pascal case
+
+## [0.0.3]
 ### Added
 - Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
 - Dialog created
