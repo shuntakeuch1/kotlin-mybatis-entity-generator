@@ -15,8 +15,8 @@ class Column(
     private val textRegex = Regex("text")
     private val jsonRegex = Regex("json")
 
-    fun typeConverter(): String {
-        val isNullFlag = nullFlag == "YES"
+    fun typeConverter(isAllNullableOption: Boolean): String {
+        val isNullFlag = isAllNullableOption || nullFlag == "YES"
         val convertType = when {
             intRegex.containsMatchIn(type) -> {
                 "Int"

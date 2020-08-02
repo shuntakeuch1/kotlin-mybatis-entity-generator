@@ -23,6 +23,7 @@ public class GeneratorDialog extends DialogWrapper {
     private JTextField directoryTextField;
     private JButton createButton;
     private JTable mysqlTable;
+    private JCheckBox nullableCheckBox;
     private final String projectBasePath;
 
     public GeneratorDialog(Project project) {
@@ -53,17 +54,25 @@ public class GeneratorDialog extends DialogWrapper {
         return connectButton;
     }
 
-    JButton getCancelButton() { return cancelButton; }
+    JButton getCancelButton() {
+        return cancelButton;
+    }
 
     JTextField getUrl() {
         return url;
     }
 
-    JTextField getSchema() { return schema; }
+    JTextField getSchema() {
+        return schema;
+    }
 
-    JTextField getUser() { return user; }
+    JTextField getUser() {
+        return user;
+    }
 
-    JTextField getPassword() { return password; }
+    JTextField getPassword() {
+        return password;
+    }
 
     JTable getMysqlTable() {
         return mysqlTable;
@@ -75,5 +84,9 @@ public class GeneratorDialog extends DialogWrapper {
 
     public String getProjectBasePath() {
         return projectBasePath;
+    }
+
+    JCheckBox getNullableCheckBox() {
+        return nullableCheckBox;
     }
 }

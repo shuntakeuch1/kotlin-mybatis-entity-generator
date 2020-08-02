@@ -7,6 +7,7 @@ import java.io.PrintWriter
 
 class EntityGenerator {
     var targetDirectory = "outputFile" // project root
+    var isAllNullable = false
 
     companion object {
         const val rootDirectory = "./"
@@ -28,7 +29,7 @@ class EntityGenerator {
             }
 
             val pw = PrintWriter(newFile)
-            pw.println("class $className (${it.toColumnAllString()} \n)")
+            pw.println("class $className (${it.toColumnAllString(isAllNullable)} \n)")
             pw.flush()
             pw.close()
         }

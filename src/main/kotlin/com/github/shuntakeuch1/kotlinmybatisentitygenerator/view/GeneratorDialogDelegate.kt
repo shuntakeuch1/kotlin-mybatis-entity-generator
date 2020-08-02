@@ -15,6 +15,7 @@ fun init(dialog: GeneratorDialog) {
     dialog.apply {
         initActionListener()
         initComboBox()
+        initDirectoryText()
     }
 }
 
@@ -32,6 +33,7 @@ private fun GeneratorDialog.initActionListener() {
         createActionPerformed()
     }
 }
+
 /** support database */
 private val items = arrayOf("mysql")
 private fun GeneratorDialog.initComboBox() {
@@ -39,6 +41,13 @@ private fun GeneratorDialog.initComboBox() {
         databaseComboBox.addItem(item)
     }
     databaseComboBox.selectedIndex = 0
+}
+
+/**
+ * Directory Text Init Value
+ */
+private fun GeneratorDialog.initDirectoryText() {
+    directoryTextField.text = projectBasePath
 }
 
 /**
@@ -102,6 +111,7 @@ private fun GeneratorDialog.clearTableActionPerformed() {
  */
 private fun GeneratorDialog.createActionPerformed() {
     val eg = EntityGenerator()
+    eg.isAllNullable = nullableCheckBox.isSelected
     eg.targetDirectory = directoryTextField.text
     eg.execute(tables = tables)
 }

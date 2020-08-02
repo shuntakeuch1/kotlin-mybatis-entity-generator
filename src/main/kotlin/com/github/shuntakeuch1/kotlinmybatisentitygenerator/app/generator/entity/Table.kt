@@ -4,9 +4,9 @@ class Table(
     val name: String,
     val columns: Array<Column>
 ) {
-    fun toColumnAllString(): String {
+    fun toColumnAllString(isAllNullableOption: Boolean): String {
         return columns.map { column ->
-            "\n val " + column.field.toString() + ": " + column.typeConverter()
+            "\n val " + column.field.toString() + ": " + column.typeConverter(isAllNullableOption)
         }.joinToString(",")
     }
 }

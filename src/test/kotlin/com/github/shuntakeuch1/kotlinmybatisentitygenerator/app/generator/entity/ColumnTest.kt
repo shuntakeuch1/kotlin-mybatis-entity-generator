@@ -34,9 +34,9 @@ class ColumnTest {
             defaultFlag = "",
             extra = ""
         )
-        assertEquals("String", columnType.typeConverter())
-        assertEquals("Int", intColumnType.typeConverter())
-        assertEquals("LocalDateTime", localDateTimeColumnType.typeConverter())
+        assertEquals("String", columnType.typeConverter(false))
+        assertEquals("Int", intColumnType.typeConverter(false))
+        assertEquals("LocalDateTime", localDateTimeColumnType.typeConverter(false))
     }
 
     @ParameterizedTest
@@ -50,7 +50,7 @@ class ColumnTest {
             defaultFlag = "",
             extra = ""
         )
-        assertEquals(expect, columnType.typeConverter())
+        assertEquals(expect, columnType.typeConverter(false))
     }
 
     companion object {
