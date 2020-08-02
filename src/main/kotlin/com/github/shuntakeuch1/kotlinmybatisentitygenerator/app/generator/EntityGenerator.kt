@@ -11,6 +11,7 @@ class EntityGenerator {
 
     companion object {
         const val rootDirectory = "./"
+        const val indexString = "src/"
     }
 
     fun execute(tables: List<Table>) {
@@ -27,8 +28,19 @@ class EntityGenerator {
             if (newFile.createNewFile()) {
                 println("make $filename")
             }
-
             val pw = PrintWriter(newFile)
+
+            if (targetDirectory.contains(indexString)) {
+                val index = targetDirectory.indexOf(indexString)
+                // TODO Support Windows
+                val packageList = targetDirectory.substring(index + indexString.length).split("/")
+                val packageName = packageList.joinToString(".")
+                pw.println("package $packageName \n")
+            }
+            // add import
+            if (it.isLocalDateTimeExist()) {
+                pw.println("import java.time.LocalDateTime \n")
+            }
             pw.println("class $className (${it.toColumnAllString(isAllNullable)} \n)")
             pw.flush()
             pw.close()
