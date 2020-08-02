@@ -27,8 +27,18 @@ class EntityGenerator {
             if (newFile.createNewFile()) {
                 println("make $filename")
             }
-
             val pw = PrintWriter(newFile)
+
+            if (targetDirectory.contains("src")) {
+                println(targetDirectory)
+                val indexString = "src/"
+                val index = targetDirectory.indexOf(indexString)
+                // TODO Support Windows
+                val packageList = targetDirectory.substring(index + indexString.length).split("/")
+                val packageName = packageList.joinToString(".")
+                pw.println("package $packageName \n")
+            }
+            // add import
             if (it.isLocalDateTimeExist()) {
                 pw.println("import java.time.LocalDateTime \n")
             }
