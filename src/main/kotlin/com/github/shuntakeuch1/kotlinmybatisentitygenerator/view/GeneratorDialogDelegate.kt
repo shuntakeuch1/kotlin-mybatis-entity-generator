@@ -111,6 +111,7 @@ private fun GeneratorDialog.clearTableActionPerformed() {
  */
 private fun GeneratorDialog.createActionPerformed() {
     val eg = EntityGenerator()
+    eg.isAllNullable = nullableCheckBox.isSelected
     eg.targetDirectory = directoryTextField.text
     eg.execute(tables = tables)
 }
