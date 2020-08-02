@@ -9,4 +9,8 @@ class Table(
             "\n val " + column.field.toString() + ": " + column.typeConverter(isAllNullableOption)
         }.joinToString(",")
     }
+
+    fun isLocalDateTimeExist(): Boolean {
+        return columns.firstOrNull { it.typeConverter(false) == "LocalDateTime" } != null
+    }
 }

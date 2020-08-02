@@ -29,6 +29,9 @@ class EntityGenerator {
             }
 
             val pw = PrintWriter(newFile)
+            if (it.isLocalDateTimeExist()) {
+                pw.println("import java.time.LocalDateTime \n")
+            }
             pw.println("class $className (${it.toColumnAllString(isAllNullable)} \n)")
             pw.flush()
             pw.close()
