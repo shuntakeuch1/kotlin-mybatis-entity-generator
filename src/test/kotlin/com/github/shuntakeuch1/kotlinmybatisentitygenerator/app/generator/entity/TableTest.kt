@@ -41,6 +41,6 @@ class TableTest {
              val : Int,
              val : LocalDateTime
         """.trimIndent()
-        assertEquals(expect, table.toColumnAllString().trimIndent())
+        assertEquals(expect, table.toColumnAllString(false).trimIndent())
     }
 }
