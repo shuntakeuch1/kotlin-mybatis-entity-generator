@@ -11,6 +11,7 @@ class EntityGenerator {
 
     companion object {
         const val rootDirectory = "./"
+        const val indexString = "src/"
     }
 
     fun execute(tables: List<Table>) {
@@ -29,9 +30,7 @@ class EntityGenerator {
             }
             val pw = PrintWriter(newFile)
 
-            if (targetDirectory.contains("src")) {
-                println(targetDirectory)
-                val indexString = "src/"
+            if (targetDirectory.contains(indexString)) {
                 val index = targetDirectory.indexOf(indexString)
                 // TODO Support Windows
                 val packageList = targetDirectory.substring(index + indexString.length).split("/")
