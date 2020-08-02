@@ -41,7 +41,7 @@ class EntityGenerator {
             if (it.isLocalDateTimeExist()) {
                 pw.println("import java.time.LocalDateTime \n")
             }
-            pw.println("class $className (${it.toColumnAllString(isAllNullable)} \n)")
+            pw.println("class $className(${it.toColumnAllString(isAllNullable)} \n)")
             pw.flush()
             pw.close()
         }

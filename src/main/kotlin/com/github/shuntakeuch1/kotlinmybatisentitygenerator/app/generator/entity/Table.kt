@@ -6,7 +6,7 @@ class Table(
 ) {
     fun toColumnAllString(isAllNullableOption: Boolean): String {
         return columns.map { column ->
-            "\n val " + column.field.toString() + ": " + column.typeConverter(isAllNullableOption)
+            "\n    val " + column.field.toString() + ": " + column.typeConverter(isAllNullableOption)
         }.joinToString(",")
     }
 
