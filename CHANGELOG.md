@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [0.0.5]
+
 ### Added
 - All Nullable Option
 
