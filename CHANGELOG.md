@@ -4,10 +4,18 @@
 
 ## [Unreleased]
 
+### Added
+- All Nullable Option
+
+### Changed
+- generate file format
+- generate file add import & add package
+
 ## [0.0.4]
 
 ### Changed
 - changed file name pascal case
+
 
 ## [0.0.3]
 ### Added
