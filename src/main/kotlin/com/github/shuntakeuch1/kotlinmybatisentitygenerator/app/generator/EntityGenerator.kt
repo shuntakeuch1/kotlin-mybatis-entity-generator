@@ -12,6 +12,7 @@ class EntityGenerator {
     companion object {
         const val rootDirectory = "./"
         const val indexString = "src/"
+        val packageNameBlockList = arrayOf("main", "kotlin", "java")
     }
 
     fun execute(tables: List<Table>) {
@@ -34,7 +35,10 @@ class EntityGenerator {
                 val index = targetDirectory.indexOf(indexString)
                 // TODO Support Windows
                 val packageList = targetDirectory.substring(index + indexString.length).split("/")
-                val packageName = packageList.joinToString(".")
+                // Delete specific values
+                val packageName = packageList.filterNot { packageValue ->
+                    packageNameBlockList.any { it == packageValue }
+                }.joinToString(".")
                 pw.println("package $packageName \n")
             }
             // add import
