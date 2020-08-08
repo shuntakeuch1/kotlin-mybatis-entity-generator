@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel
 
 /** connection table data */
 private var tables: List<Table> = mutableListOf()
+const val CHECKBOX_MIN_WIDTH = 40
+const val CHECKBOX_MAX_WIDTH = 40
 
 fun init(dialog: GeneratorDialog) {
     dialog.apply {
@@ -100,8 +102,8 @@ private fun GeneratorDialog.connectActionPerformed() {
     }
 
     mysqlTable.model = tableModel
-    mysqlTable.columnModel.getColumn(0).minWidth = 40
-    mysqlTable.columnModel.getColumn(0).maxWidth = 40
+    mysqlTable.columnModel.getColumn(0).minWidth = CHECKBOX_MIN_WIDTH
+    mysqlTable.columnModel.getColumn(0).maxWidth = CHECKBOX_MAX_WIDTH
 }
 
 /**
