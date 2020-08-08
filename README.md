@@ -52,7 +52,7 @@ Generate a mapping class for a single table.
       <td>TINYTEXT,TEXT,MEDIUMTEXT,LONGTEXT</td>
     </tr>
     <tr>
-      <td>json</td>
+      <td>JSON,ENUM</td>
     </tr>
   </tbody>
 </table>
