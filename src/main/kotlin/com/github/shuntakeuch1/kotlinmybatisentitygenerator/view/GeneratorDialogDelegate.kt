@@ -40,12 +40,11 @@ private fun GeneratorDialog.initActionListener() {
 }
 
 /** support database */
-private val items = arrayOf("mysql")
 private fun GeneratorDialog.initComboBox() {
-    items.forEach { item ->
-        databaseComboBox.addItem(item)
+    DatabaseType.values().forEach {
+        databaseComboBox.addItem(it.typeName)
     }
-    databaseComboBox.selectedIndex = 0
+    databaseComboBox.selectedIndex = DatabaseType.MYSQL.index
 }
 
 /**
@@ -95,7 +94,7 @@ private fun GeneratorDialog.connectActionPerformed() {
 
 /** draw table name */
 private fun GeneratorDialog.setTables() {
-    val columnNames = arrayOf("", "Table Name")
+    val columnNames = GenerateTableColumn.values().map { it.columnName }.toTypedArray()
     val data = Array(0) { arrayOfNulls<Any>(2) }
     val tableModel = object : DefaultTableModel(data, columnNames) {
         override fun getColumnClass(columnIndex: Int): Class<*> {
@@ -103,7 +102,7 @@ private fun GeneratorDialog.setTables() {
         }
 
         override fun isCellEditable(row: Int, column: Int): Boolean {
-            return column == 0
+            return column == GenerateTableColumn.CHECKBOX.index
         }
     }
     tables.forEach { table ->
@@ -111,8 +110,8 @@ private fun GeneratorDialog.setTables() {
     }
 
     mysqlTable.model = tableModel
-    mysqlTable.columnModel.getColumn(0).minWidth = CHECKBOX_MIN_WIDTH
-    mysqlTable.columnModel.getColumn(0).maxWidth = CHECKBOX_MAX_WIDTH
+    mysqlTable.columnModel.getColumn(GenerateTableColumn.CHECKBOX.index).minWidth = CHECKBOX_MIN_WIDTH
+    mysqlTable.columnModel.getColumn(GenerateTableColumn.CHECKBOX.index).maxWidth = CHECKBOX_MAX_WIDTH
 }
 
 /**
@@ -135,8 +134,9 @@ private fun GeneratorDialog.createActionPerformed() {
     var denyGenerateFileName = arrayOf<String>()
     val maxCount = mysqlTable.rowCount - 1
     for (i in 0..maxCount) {
-        if (mysqlTable.model.getValueAt(i, 0) == false) {
-            denyGenerateFileName += mysqlTable.model.getValueAt(i, 1).toString()
+        if (mysqlTable.model.getValueAt(i, GenerateTableColumn.CHECKBOX.index) == false) {
+            denyGenerateFileName +=
+                mysqlTable.model.getValueAt(i, GenerateTableColumn.TABLE_NAME.index).toString()
         }
     }
     val targetTables = tables.filterNot { table ->
