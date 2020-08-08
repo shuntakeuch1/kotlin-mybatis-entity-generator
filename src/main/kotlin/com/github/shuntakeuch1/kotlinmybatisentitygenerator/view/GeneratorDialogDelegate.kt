@@ -122,7 +122,17 @@ private fun GeneratorDialog.createActionPerformed() {
     val eg = EntityGenerator()
     eg.isAllNullable = nullableCheckBox.isSelected
     eg.targetDirectory = directoryTextField.text
-    eg.execute(tables = tables)
+    var denyGenerateFileName = arrayOf<String>()
+    val maxCount = mysqlTable.rowCount - 1
+    for (i in 0..maxCount) {
+        if (mysqlTable.model.getValueAt(i, 0) == false) {
+            denyGenerateFileName += mysqlTable.model.getValueAt(i, 1).toString()
+        }
+    }
+    val targetTables = tables.filterNot { table ->
+        denyGenerateFileName.any { it == table.name }
+    }
+    eg.execute(tables = targetTables)
     Messages.showMessageDialog(
         "${eg.lastCreatedFileCount} file created",
         "Information",
