@@ -84,18 +84,21 @@ private fun GeneratorDialog.connectActionPerformed() {
     tables = repository.getTables()
 
     /** draw table name */
-    val columnNames = arrayOf("Table Name")
-    val data = Array(tables.size) { arrayOfNulls<String>(1) }
-    var index = 0
-    tables.forEach { table ->
-        data[index][0] = table.name
-        index++
-    }
+    val columnNames = arrayOf("", "Table Name")
+    val data = Array(0) { arrayOfNulls<Any>(2) }
     val tableModel = object : DefaultTableModel(data, columnNames) {
+        override fun getColumnClass(columnIndex: Int): Class<*> {
+            return getValueAt(0, columnIndex).javaClass
+        }
+
         override fun isCellEditable(row: Int, column: Int): Boolean {
-            return false
+            return column == 0
         }
     }
+    tables.forEach { table ->
+        tableModel.addRow(arrayOf(true, table.name))
+    }
+
     mysqlTable.model = tableModel
 }
 
