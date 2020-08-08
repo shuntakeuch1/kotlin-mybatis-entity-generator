@@ -100,6 +100,8 @@ private fun GeneratorDialog.connectActionPerformed() {
     }
 
     mysqlTable.model = tableModel
+    mysqlTable.columnModel.getColumn(0).minWidth = 40
+    mysqlTable.columnModel.getColumn(0).maxWidth = 40
 }
 
 /**
