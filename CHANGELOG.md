@@ -3,6 +3,13 @@
 # kotlin-mybatis-entity-generator Changelog
 
 ## [Unreleased]
+### Added
+- You can select the file to create.
+- Dialog is displayed after creating the file.
+### Changed
+- Table list has scroll bar.
+- Added to remove "kotlin","main" from the package name.
+- Convert to String when column type is enum.
 
 ## [0.0.5]
 
