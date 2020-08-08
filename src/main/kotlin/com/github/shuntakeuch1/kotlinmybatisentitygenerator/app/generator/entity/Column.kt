@@ -57,6 +57,7 @@ class Column(
             binaryRegex.containsMatchIn(type) ||
             blobRegex.containsMatchIn(type) ||
             textRegex.containsMatchIn(type) ||
-            jsonRegex.containsMatchIn(type)
+            jsonRegex.containsMatchIn(type) ||
+            type.startsWith("enum")
     }
 }

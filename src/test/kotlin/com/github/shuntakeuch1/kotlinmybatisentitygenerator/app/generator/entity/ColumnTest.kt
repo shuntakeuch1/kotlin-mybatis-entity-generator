@@ -87,13 +87,15 @@ class ColumnTest {
             Arguments.of("String", "blob", "NO"),
             Arguments.of("String", "text", "NO"),
             Arguments.of("String", "json", "NO"),
+            Arguments.of("String", "enum(\"red\",\"blue\")", "NO"),
             // string nullable
             Arguments.of("String?", "varchar(255)", "YES"),
             Arguments.of("String?", "char(255)", "YES"),
             Arguments.of("String?", "binary(255)", "YES"),
             Arguments.of("String?", "blob", "YES"),
             Arguments.of("String?", "text", "YES"),
-            Arguments.of("String?", "json", "YES")
+            Arguments.of("String?", "json", "YES"),
+            Arguments.of("String?", "enum(\"red\",\"blue\")", "YES")
         )
     }
 }
