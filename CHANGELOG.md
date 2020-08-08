@@ -3,6 +3,8 @@
 # kotlin-mybatis-entity-generator Changelog
 
 ## [Unreleased]
+
+## [0.0.6]
 ### Added
 - You can select the file to create.
 - Dialog is displayed after creating the file.
