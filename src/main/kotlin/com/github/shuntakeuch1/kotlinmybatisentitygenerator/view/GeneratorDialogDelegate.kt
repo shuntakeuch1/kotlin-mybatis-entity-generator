@@ -5,6 +5,8 @@ package com.github.shuntakeuch1.kotlinmybatisentitygenerator.view
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.EntityGenerator
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity.Table
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository.MySQLRepository
+import com.intellij.icons.AllIcons
+import com.intellij.openapi.ui.Messages
 import javax.swing.JFileChooser
 import javax.swing.table.DefaultTableModel
 
@@ -114,4 +116,9 @@ private fun GeneratorDialog.createActionPerformed() {
     eg.isAllNullable = nullableCheckBox.isSelected
     eg.targetDirectory = directoryTextField.text
     eg.execute(tables = tables)
+    Messages.showMessageDialog(
+        "${eg.lastCreatedFileCount} file created",
+        "Information",
+        AllIcons.General.InformationDialog
+    )
 }

@@ -8,6 +8,7 @@ import java.io.PrintWriter
 class EntityGenerator {
     var targetDirectory = "outputFile" // project root
     var isAllNullable = false
+    var lastCreatedFileCount = 0
 
     companion object {
         const val rootDirectory = "./"
@@ -16,6 +17,7 @@ class EntityGenerator {
     }
 
     fun execute(tables: List<Table>) {
+        lastCreatedFileCount = 0
         val newDir = File(targetDirectory)
         if (newDir.mkdir()) {
             println("make directory")
@@ -49,5 +51,7 @@ class EntityGenerator {
             pw.flush()
             pw.close()
         }
+
+        lastCreatedFileCount = tables.count()
     }
 }
