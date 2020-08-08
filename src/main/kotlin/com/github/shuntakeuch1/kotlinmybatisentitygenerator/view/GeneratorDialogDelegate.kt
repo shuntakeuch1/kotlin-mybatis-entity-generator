@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel
 
 /** connection table data */
 private var tables: List<Table> = mutableListOf()
+const val CHECKBOX_MIN_WIDTH = 40
+const val CHECKBOX_MAX_WIDTH = 40
 
 fun init(dialog: GeneratorDialog) {
     dialog.apply {
@@ -38,12 +40,11 @@ private fun GeneratorDialog.initActionListener() {
 }
 
 /** support database */
-private val items = arrayOf("mysql")
 private fun GeneratorDialog.initComboBox() {
-    items.forEach { item ->
-        databaseComboBox.addItem(item)
+    DatabaseType.values().forEach {
+        databaseComboBox.addItem(it.typeName)
     }
-    databaseComboBox.selectedIndex = 0
+    databaseComboBox.selectedIndex = DatabaseType.MYSQL.index
 }
 
 /**
@@ -54,8 +55,7 @@ private fun GeneratorDialog.initDirectoryText() {
 }
 
 private fun GeneratorDialog.initTables() {
-    val data = Array(0) { arrayOfNulls<String>(1) }
-    setTables(data)
+    setTables()
 }
 
 /**
@@ -89,24 +89,29 @@ private fun GeneratorDialog.connectActionPerformed() {
     repository.schema = schema
     tables = repository.getTables()
 
-    val data = Array(tables.size) { arrayOfNulls<String>(1) }
-    var index = 0
-    tables.forEach { table ->
-        data[index][0] = table.name
-        index++
-    }
-    setTables(data)
+    setTables()
 }
 
 /** draw table name */
-private fun GeneratorDialog.setTables(data: Array<Array<String?>>) {
-    val columnNames = arrayOf("Table Name")
+private fun GeneratorDialog.setTables() {
+    val columnNames = GenerateTableColumn.values().map { it.columnName }.toTypedArray()
+    val data = Array(0) { arrayOfNulls<Any>(2) }
     val tableModel = object : DefaultTableModel(data, columnNames) {
+        override fun getColumnClass(columnIndex: Int): Class<*> {
+            return getValueAt(0, columnIndex).javaClass
+        }
+
         override fun isCellEditable(row: Int, column: Int): Boolean {
-            return false
+            return column == GenerateTableColumn.CHECKBOX.index
         }
     }
+    tables.forEach { table ->
+        tableModel.addRow(arrayOf(true, table.name))
+    }
+
     mysqlTable.model = tableModel
+    mysqlTable.columnModel.getColumn(GenerateTableColumn.CHECKBOX.index).minWidth = CHECKBOX_MIN_WIDTH
+    mysqlTable.columnModel.getColumn(GenerateTableColumn.CHECKBOX.index).maxWidth = CHECKBOX_MAX_WIDTH
 }
 
 /**
@@ -114,7 +119,8 @@ private fun GeneratorDialog.setTables(data: Array<Array<String?>>) {
  * with Cancel Action Button
  */
 private fun GeneratorDialog.clearTableActionPerformed() {
-    initTables()
+    tables = mutableListOf()
+    setTables()
 }
 
 /**
@@ -125,7 +131,18 @@ private fun GeneratorDialog.createActionPerformed() {
     val eg = EntityGenerator()
     eg.isAllNullable = nullableCheckBox.isSelected
     eg.targetDirectory = directoryTextField.text
-    eg.execute(tables = tables)
+    var denyGenerateFileName = arrayOf<String>()
+    val maxCount = mysqlTable.rowCount - 1
+    for (i in 0..maxCount) {
+        if (mysqlTable.model.getValueAt(i, GenerateTableColumn.CHECKBOX.index) == false) {
+            denyGenerateFileName +=
+                mysqlTable.model.getValueAt(i, GenerateTableColumn.TABLE_NAME.index).toString()
+        }
+    }
+    val targetTables = tables.filterNot { table ->
+        denyGenerateFileName.any { it == table.name }
+    }
+    eg.execute(tables = targetTables)
     Messages.showMessageDialog(
         "${eg.lastCreatedFileCount} file created",
         "Information",

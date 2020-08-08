@@ -173,6 +173,7 @@
           <component id="cae50" class="javax.swing.JTable" binding="mysqlTable">
             <constraints/>
             <properties>
+              <intercellSpacing width="1" height="2"/>
               <showVerticalLines value="true"/>
             </properties>
             <clientProperties>
