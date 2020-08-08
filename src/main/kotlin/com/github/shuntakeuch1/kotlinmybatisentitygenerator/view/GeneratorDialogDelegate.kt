@@ -20,6 +20,7 @@ fun init(dialog: GeneratorDialog) {
         initActionListener()
         initComboBox()
         initDirectoryText()
+        initTables()
     }
 }
 
@@ -54,6 +55,10 @@ private fun GeneratorDialog.initDirectoryText() {
     directoryTextField.text = projectBasePath
 }
 
+private fun GeneratorDialog.initTables() {
+    setTables()
+}
+
 /**
  * File Select Action
  */
@@ -85,7 +90,11 @@ private fun GeneratorDialog.connectActionPerformed() {
     repository.schema = schema
     tables = repository.getTables()
 
-    /** draw table name */
+    setTables()
+}
+
+/** draw table name */
+private fun GeneratorDialog.setTables() {
     val columnNames = arrayOf("", "Table Name")
     val data = Array(0) { arrayOfNulls<Any>(2) }
     val tableModel = object : DefaultTableModel(data, columnNames) {
@@ -111,7 +120,8 @@ private fun GeneratorDialog.connectActionPerformed() {
  * with Cancel Action Button
  */
 private fun GeneratorDialog.clearTableActionPerformed() {
-    mysqlTable.model = DefaultTableModel()
+    tables = mutableListOf()
+    setTables()
 }
 
 /**
