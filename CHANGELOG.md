@@ -3,6 +3,9 @@
 # kotlin-mybatis-entity-generator Changelog
 
 ## [Unreleased]
+### Added
+### Changed
+- Update Platform version 2020.2
 
 ## [0.0.6]
 ### Added
