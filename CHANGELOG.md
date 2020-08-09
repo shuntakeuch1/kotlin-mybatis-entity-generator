@@ -3,6 +3,10 @@
 # kotlin-mybatis-entity-generator Changelog
 
 ## [Unreleased]
+### Changed
+- Delete Deplicated method
+- Update Platform version 2020.2
+- Change to filechooser provided by jetbrains
 
 ## [0.0.7]
 ### Changed
