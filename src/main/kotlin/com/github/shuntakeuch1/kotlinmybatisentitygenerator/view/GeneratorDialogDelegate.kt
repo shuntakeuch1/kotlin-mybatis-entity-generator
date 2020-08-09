@@ -6,6 +6,9 @@ import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.Entity
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity.Table
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository.MySQLRepository
 import com.intellij.icons.AllIcons
+import com.intellij.notification.Notification
+import com.intellij.notification.NotificationType
+import com.intellij.notification.Notifications
 import com.intellij.openapi.fileChooser.FileChooser
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.ui.Messages
@@ -70,9 +73,13 @@ private fun GeneratorDialog.folderSelectActionPerformed() {
         FileChooserDescriptorFactory.createSingleFolderDescriptor()
     // TODO: refactor Deprecated method
     // https://github.com/shuntakeuch1/kotlin-mybatis-entity-generator/issues/36
-    val file = FileChooser.chooseFile(fileChooserDescriptor, project, project.baseDir)
-    if (file != null) {
-        directoryLabel.text = file.path
+    val folder = FileChooser.chooseFile(fileChooserDescriptor, project, project.baseDir)
+    if (folder != null) {
+        directoryLabel.text = folder.path
+    } else {
+        Notifications.Bus.notify(
+            Notification("entity-generator", "entity-generator", "Please select a folder.", NotificationType.WARNING)
+        )
     }
 }
 
