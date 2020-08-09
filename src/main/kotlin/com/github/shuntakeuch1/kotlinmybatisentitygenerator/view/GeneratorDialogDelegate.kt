@@ -12,6 +12,8 @@ import com.intellij.notification.Notifications
 import com.intellij.openapi.fileChooser.FileChooser
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.ui.Messages
+import com.intellij.openapi.vfs.LocalFileSystem
+import java.io.File
 import javax.swing.table.DefaultTableModel
 
 /** connection table data */
@@ -72,11 +74,10 @@ private fun GeneratorDialog.folderSelectActionPerformed() {
     val fileChooserDescriptor =
         FileChooserDescriptorFactory.createSingleFolderDescriptor()
 
-    /**
-     * TODO: refactor Deprecated method
-     * https://github.com/shuntakeuch1/kotlin-mybatis-entity-generator/issues/36
-     */
-    val folder = FileChooser.chooseFile(fileChooserDescriptor, project, project.baseDir)
+    val file = File(project.basePath!!)
+    val projectBaseDir = LocalFileSystem.getInstance().findFileByIoFile(file)
+    val folder = FileChooser.chooseFile(fileChooserDescriptor, project, projectBaseDir)
+
     if (folder != null) {
         directoryLabel.text = folder.path
     } else {
