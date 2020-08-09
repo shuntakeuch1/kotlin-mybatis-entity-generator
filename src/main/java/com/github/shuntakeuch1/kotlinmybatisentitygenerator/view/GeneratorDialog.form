@@ -149,12 +149,12 @@
           <text value="Create"/>
         </properties>
       </component>
-      <component id="cb1cd" class="javax.swing.JButton" binding="fileSelectButton">
+      <component id="cb1cd" class="javax.swing.JButton" binding="folderSelectButton">
         <constraints>
           <grid row="1" column="11" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="file select"/>
+          <text value="folder select"/>
         </properties>
       </component>
       <scrollpane id="9c51e">

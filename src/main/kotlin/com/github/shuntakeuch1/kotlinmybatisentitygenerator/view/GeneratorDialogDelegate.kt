@@ -6,8 +6,12 @@ import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.Entity
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity.Table
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository.MySQLRepository
 import com.intellij.icons.AllIcons
+import com.intellij.notification.Notification
+import com.intellij.notification.NotificationType
+import com.intellij.notification.Notifications
+import com.intellij.openapi.fileChooser.FileChooser
+import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.ui.Messages
-import javax.swing.JFileChooser
 import javax.swing.table.DefaultTableModel
 
 /** connection table data */
@@ -25,8 +29,8 @@ fun init(dialog: GeneratorDialog) {
 }
 
 private fun GeneratorDialog.initActionListener() {
-    fileSelectButton.addActionListener {
-        fileSelectActionPerformed()
+    folderSelectButton.addActionListener {
+        folderSelectActionPerformed()
     }
     connectButton.addActionListener {
         connectActionPerformed()
@@ -53,7 +57,7 @@ private fun GeneratorDialog.initComboBox() {
  * Directory Text Init Value
  */
 private fun GeneratorDialog.initDirectoryText() {
-    directoryLabel.text = projectBasePath
+    directoryLabel.text = project.basePath
 }
 
 private fun GeneratorDialog.initTables() {
@@ -63,15 +67,22 @@ private fun GeneratorDialog.initTables() {
 /**
  * File Select Action
  */
-private fun GeneratorDialog.fileSelectActionPerformed() {
+private fun GeneratorDialog.folderSelectActionPerformed() {
     /** Pop Up file selection dialog */
-    val fileChooser = JFileChooser(projectBasePath).apply {
-        fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
-    }
-    val selected = fileChooser.showOpenDialog(createCenterPanel())
-    if (selected == JFileChooser.APPROVE_OPTION) {
-        val file = fileChooser.selectedFile
-        directoryLabel.text = file.absolutePath
+    val fileChooserDescriptor =
+        FileChooserDescriptorFactory.createSingleFolderDescriptor()
+
+    /**
+     * TODO: refactor Deprecated method
+     * https://github.com/shuntakeuch1/kotlin-mybatis-entity-generator/issues/36
+     */
+    val folder = FileChooser.chooseFile(fileChooserDescriptor, project, project.baseDir)
+    if (folder != null) {
+        directoryLabel.text = folder.path
+    } else {
+        Notifications.Bus.notify(
+            Notification("entity-generator", "entity-generator", "Please select a folder.", NotificationType.WARNING)
+        )
     }
 }
 
