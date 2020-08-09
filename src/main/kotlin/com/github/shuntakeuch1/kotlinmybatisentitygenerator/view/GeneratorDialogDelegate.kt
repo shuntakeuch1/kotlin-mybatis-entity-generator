@@ -41,17 +41,19 @@ private fun GeneratorDialog.initActionListener() {
 
 /** support database */
 private fun GeneratorDialog.initComboBox() {
-    DatabaseType.values().forEach {
-        databaseComboBox.addItem(it.typeName)
+    databaseComboBox.apply {
+        DatabaseType.values().forEach {
+            addItem(it.typeName)
+        }
+        selectedIndex = DatabaseType.MYSQL.index
     }
-    databaseComboBox.selectedIndex = DatabaseType.MYSQL.index
 }
 
 /**
  * Directory Text Init Value
  */
 private fun GeneratorDialog.initDirectoryText() {
-    directoryTextField.text = projectBasePath
+    directoryLabel.text = projectBasePath
 }
 
 private fun GeneratorDialog.initTables() {
@@ -63,13 +65,13 @@ private fun GeneratorDialog.initTables() {
  */
 private fun GeneratorDialog.fileSelectActionPerformed() {
     /** Pop Up file selection dialog */
-    val fileChooser = JFileChooser(projectBasePath)
-    fileChooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
-
+    val fileChooser = JFileChooser(projectBasePath).apply {
+        fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
+    }
     val selected = fileChooser.showOpenDialog(createCenterPanel())
     if (selected == JFileChooser.APPROVE_OPTION) {
         val file = fileChooser.selectedFile
-        directoryTextField.text = file.absolutePath
+        directoryLabel.text = file.absolutePath
     }
 }
 
@@ -77,17 +79,15 @@ private fun GeneratorDialog.fileSelectActionPerformed() {
  * Draw Table View
  * with Connect Button Action
  */
-
 private fun GeneratorDialog.connectActionPerformed() {
     /** table connection */
-    val repository = MySQLRepository()
     val database = databaseComboBox.selectedItem
-    val schema = schema.text
-    repository.jdbcURL = "jdbc:$database://${url.text}/$schema"
-    repository.user = user.text
-    repository.password = password.text
-    repository.schema = schema
-    tables = repository.getTables()
+    tables = MySQLRepository().apply {
+        jdbcURL = "jdbc:$database://${url.text}/${schemaTextField.text}"
+        user = userTextField.text
+        password = passwordTextField.text
+        schema = schemaTextField.text
+    }.getTables()
 
     setTables()
 }
@@ -110,8 +110,10 @@ private fun GeneratorDialog.setTables() {
     }
 
     mysqlTable.model = tableModel
-    mysqlTable.columnModel.getColumn(GenerateTableColumn.CHECKBOX.index).minWidth = CHECKBOX_MIN_WIDTH
-    mysqlTable.columnModel.getColumn(GenerateTableColumn.CHECKBOX.index).maxWidth = CHECKBOX_MAX_WIDTH
+    mysqlTable.columnModel.getColumn(GenerateTableColumn.CHECKBOX.index).apply {
+        minWidth = CHECKBOX_MIN_WIDTH
+        maxWidth = CHECKBOX_MAX_WIDTH
+    }
 }
 
 /**
@@ -128,9 +130,10 @@ private fun GeneratorDialog.clearTableActionPerformed() {
  * with Create Action Button
  */
 private fun GeneratorDialog.createActionPerformed() {
-    val eg = EntityGenerator()
-    eg.isAllNullable = nullableCheckBox.isSelected
-    eg.targetDirectory = directoryTextField.text
+    val eg = EntityGenerator().apply {
+        isAllNullable = nullableCheckBox.isSelected
+        targetDirectory = directoryLabel.text
+    }
     var denyGenerateFileName = arrayOf<String>()
     val maxCount = mysqlTable.rowCount - 1
     for (i in 0..maxCount) {
