@@ -33,60 +33,60 @@ public class GeneratorDialog extends DialogWrapper {
         init();
     }
 
-    JComboBox getDatabaseComboBox() {
-        return databaseComboBox;
-    }
-
     @Override
     protected @Nullable JComponent createCenterPanel() {
         return contentPane;
     }
 
-    JButton getFileSelectButton() {
+    protected JComboBox getDatabaseComboBox() {
+        return databaseComboBox;
+    }
+
+    protected JButton getFileSelectButton() {
         return fileSelectButton;
     }
 
-    JTextField getDirectoryTextField() {
-        return directoryTextField;
+    protected JLabel getDirectoryLabel() {
+        return directoryLabel;
     }
 
-    JButton getConnectButton() {
+    protected JButton getConnectButton() {
         return connectButton;
     }
 
-    JButton getCancelButton() {
+    protected JButton getCancelButton() {
         return cancelButton;
     }
 
-    JTextField getUrl() {
+    protected JTextField getUrl() {
         return url;
     }
 
-    JTextField getSchema() {
-        return schema;
+    protected JTextField getSchemaTextField() {
+        return schemaTextField;
     }
 
-    JTextField getUser() {
-        return user;
+    protected JTextField getUserTextField() {
+        return userTextField;
     }
 
-    JTextField getPassword() {
-        return password;
+    protected JTextField getPasswordTextField() {
+        return passwordTextField;
     }
 
-    JTable getMysqlTable() {
+    protected JTable getMysqlTable() {
         return mysqlTable;
     }
 
-    JButton getCreateButton() {
+    protected JButton getCreateButton() {
         return createButton;
     }
 
-    public String getProjectBasePath() {
+    protected String getProjectBasePath() {
         return projectBasePath;
     }
 
-    JCheckBox getNullableCheckBox() {
+    protected JCheckBox getNullableCheckBox() {
         return nullableCheckBox;
     }
 }

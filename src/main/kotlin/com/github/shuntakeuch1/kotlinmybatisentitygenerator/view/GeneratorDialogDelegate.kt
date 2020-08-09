@@ -12,8 +12,8 @@ import javax.swing.table.DefaultTableModel
 
 /** connection table data */
 private var tables: List<Table> = mutableListOf()
-const val CHECKBOX_MIN_WIDTH = 40
-const val CHECKBOX_MAX_WIDTH = 40
+private const val CHECKBOX_MIN_WIDTH = 40
+private const val CHECKBOX_MAX_WIDTH = 40
 
 fun init(dialog: GeneratorDialog) {
     dialog.apply {
