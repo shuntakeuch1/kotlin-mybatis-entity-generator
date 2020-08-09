@@ -19,16 +19,16 @@ public class GeneratorDialog extends DialogWrapper {
     private JLabel passwordLabel;
     private JLabel userLabel;
     private JComboBox databaseComboBox;
-    private JButton fileSelectButton;
+    private JButton folderSelectButton;
     private JLabel directoryLabel;
     private JButton createButton;
     private JTable mysqlTable;
     private JCheckBox nullableCheckBox;
-    private final String projectBasePath;
+    private final Project project;
 
     public GeneratorDialog(Project project) {
         super(project);
-        projectBasePath = project.getBasePath();
+        this.project = project;
         GeneratorDialogDelegate.init(this);
         init();
     }
@@ -42,8 +42,8 @@ public class GeneratorDialog extends DialogWrapper {
         return databaseComboBox;
     }
 
-    protected JButton getFileSelectButton() {
-        return fileSelectButton;
+    protected JButton getFolderSelectButton() {
+        return folderSelectButton;
     }
 
     protected JLabel getDirectoryLabel() {
@@ -82,8 +82,8 @@ public class GeneratorDialog extends DialogWrapper {
         return createButton;
     }
 
-    protected String getProjectBasePath() {
-        return projectBasePath;
+    protected Project getProject() {
+        return project;
     }
 
     protected JCheckBox getNullableCheckBox() {
