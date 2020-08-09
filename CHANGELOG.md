@@ -3,6 +3,8 @@
 # kotlin-mybatis-entity-generator Changelog
 
 ## [Unreleased]
+
+## [0.0.8]
 ### Changed
 - Delete Deplicated method
 - Update Platform version 2020.2
