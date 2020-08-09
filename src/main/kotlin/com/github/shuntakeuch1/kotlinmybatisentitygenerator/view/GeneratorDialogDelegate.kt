@@ -71,8 +71,11 @@ private fun GeneratorDialog.folderSelectActionPerformed() {
     /** Pop Up file selection dialog */
     val fileChooserDescriptor =
         FileChooserDescriptorFactory.createSingleFolderDescriptor()
-    // TODO: refactor Deprecated method
-    // https://github.com/shuntakeuch1/kotlin-mybatis-entity-generator/issues/36
+
+    /**
+     * TODO: refactor Deprecated method
+     * https://github.com/shuntakeuch1/kotlin-mybatis-entity-generator/issues/36
+     */
     val folder = FileChooser.chooseFile(fileChooserDescriptor, project, project.baseDir)
     if (folder != null) {
         directoryLabel.text = folder.path
