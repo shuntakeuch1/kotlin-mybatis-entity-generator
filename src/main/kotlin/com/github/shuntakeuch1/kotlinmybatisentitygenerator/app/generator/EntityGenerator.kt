@@ -13,6 +13,8 @@ class EntityGenerator {
     companion object {
         const val rootDirectory = "./"
         const val indexString = "src/"
+        const val windowsString = "windows"
+        const val operationSystemName = "os.name"
         val packageNameBlockList = arrayOf("main", "kotlin", "java")
     }
 
@@ -35,8 +37,13 @@ class EntityGenerator {
 
             if (targetDirectory.contains(indexString)) {
                 val index = targetDirectory.indexOf(indexString)
-                // TODO Support Windows
-                val packageList = targetDirectory.substring(index + indexString.length).split("/")
+                val osName = System.getProperty(operationSystemName).toLowerCase()
+                val packageList = if (osName.startsWith(windowsString)) {
+                    targetDirectory.substring(index + indexString.length).split("￥")
+                } else {
+                    targetDirectory.substring(index + indexString.length).split("/")
+                }
+
                 // Delete specific values
                 val packageName = packageList.filterNot { packageValue ->
                     packageNameBlockList.any { it == packageValue }
