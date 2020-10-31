@@ -1,5 +1,6 @@
 package com.github.shuntakeuch1.kotlinmybatisentitygenerator.view;
 
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.services.MyProjectService;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import org.jetbrains.annotations.Nullable;
@@ -25,10 +26,12 @@ public class GeneratorDialog extends DialogWrapper {
     private JTable mysqlTable;
     private JCheckBox nullableCheckBox;
     private final Project project;
+    private final MyProjectService service;
 
-    public GeneratorDialog(Project project) {
+    public GeneratorDialog(Project project, MyProjectService service) {
         super(project);
         this.project = project;
+        this.service = service;
         GeneratorDialogDelegate.init(this);
         init();
     }
@@ -84,6 +87,10 @@ public class GeneratorDialog extends DialogWrapper {
 
     protected Project getProject() {
         return project;
+    }
+
+    protected MyProjectService getService() {
+        return service;
     }
 
     protected JCheckBox getNullableCheckBox() {

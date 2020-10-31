@@ -9,7 +9,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.shuntakeuch1.kotlinmybatisentitygenerator.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.shuntakeuch1.kotlinmybatisentitygenerator.PluginConfig"/>
+        <projectService serviceImplementation="com.github.shuntakeuch1.kotlinmybatisentitygenerator.services.MyProjectService"/>
     </extensions>
 
     <projectListeners>

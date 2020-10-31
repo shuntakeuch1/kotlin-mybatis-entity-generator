@@ -5,7 +5,11 @@ package com.github.shuntakeuch1.kotlinmybatisentitygenerator.view
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.EntityGenerator
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity.Table
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository.MySQLRepository
+import com.intellij.credentialStore.CredentialAttributes
+import com.intellij.credentialStore.Credentials
+import com.intellij.credentialStore.generateServiceName
 import com.intellij.icons.AllIcons
+import com.intellij.ide.passwordSafe.PasswordSafe
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType
 import com.intellij.notification.Notifications
@@ -13,6 +17,7 @@ import com.intellij.openapi.fileChooser.FileChooser
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.LocalFileSystem
+import org.jetbrains.annotations.Nullable
 import java.io.File
 import javax.swing.table.DefaultTableModel
 
@@ -20,6 +25,7 @@ import javax.swing.table.DefaultTableModel
 private var tables: List<Table> = mutableListOf()
 private const val CHECKBOX_MIN_WIDTH = 40
 private const val CHECKBOX_MAX_WIDTH = 40
+private const val DB_CONNECT_PASSWORD_KEY = "kotlin_mybatis_generator"
 
 fun init(dialog: GeneratorDialog) {
     dialog.apply {
@@ -27,6 +33,7 @@ fun init(dialog: GeneratorDialog) {
         initComboBox()
         initDirectoryText()
         initTables()
+        initSettings()
     }
 }
 
@@ -66,6 +73,12 @@ private fun GeneratorDialog.initTables() {
     setTables()
 }
 
+private fun GeneratorDialog.initSettings() {
+    userTextField.text = service.user
+    passwordTextField.text = getPasswordCredential()
+    schemaTextField.text = service.schema
+}
+
 /**
  * File Select Action
  */
@@ -94,14 +107,34 @@ private fun GeneratorDialog.folderSelectActionPerformed() {
 private fun GeneratorDialog.connectActionPerformed() {
     /** table connection */
     val database = databaseComboBox.selectedItem
+    val password = passwordTextField.text
     tables = MySQLRepository().apply {
         jdbcURL = "jdbc:$database://${url.text}/${schemaTextField.text}"
         user = userTextField.text
-        password = passwordTextField.text
         schema = schemaTextField.text
+        this.password = password
     }.getTables()
-
     setTables()
+    // save connect config
+    setPasswordCredential(userTextField.text, passwordTextField.text)
+    service.apply {
+        jdbcURL = "jdbc:$database://${url.text}/${schemaTextField.text}"
+        user = userTextField.text
+        schema = schemaTextField.text
+    }
+}
+
+private fun getPasswordCredential(): @Nullable String? {
+    return PasswordSafe.instance.getPassword(createCredentialAttributes())
+}
+
+private fun setPasswordCredential(user: String, password: String?) {
+    val credentials = Credentials(user, password)
+    PasswordSafe.instance.set(createCredentialAttributes(), credentials)
+}
+
+private fun createCredentialAttributes(): CredentialAttributes {
+    return CredentialAttributes(generateServiceName("MyProjectService", DB_CONNECT_PASSWORD_KEY))
 }
 
 /** draw table name */
