@@ -17,7 +17,6 @@ import com.intellij.openapi.fileChooser.FileChooser
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.LocalFileSystem
-import org.jetbrains.annotations.Nullable
 import java.io.File
 import javax.swing.table.DefaultTableModel
 
@@ -29,53 +28,39 @@ private const val DB_CONNECT_PASSWORD_KEY = "kotlin_mybatis_generator"
 
 fun init(dialog: GeneratorDialog) {
     dialog.apply {
-        initActionListener()
-        initComboBox()
-        initDirectoryText()
-        initTables()
-        initSettings()
+        /** init Action Listener */
+        folderSelectButton.addActionListener {
+            folderSelectActionPerformed()
+        }
+        connectButton.addActionListener {
+            connectActionPerformed()
+        }
+        cancelButton.addActionListener {
+            clearTableActionPerformed()
+        }
+        createButton.addActionListener {
+            createActionPerformed()
+        }
+
+        initDialogViewSettings()
     }
 }
 
-private fun GeneratorDialog.initActionListener() {
-    folderSelectButton.addActionListener {
-        folderSelectActionPerformed()
-    }
-    connectButton.addActionListener {
-        connectActionPerformed()
-    }
-    cancelButton.addActionListener {
-        clearTableActionPerformed()
-    }
-    createButton.addActionListener {
-        createActionPerformed()
-    }
-}
-
-/** support database */
-private fun GeneratorDialog.initComboBox() {
+private fun GeneratorDialog.initDialogViewSettings() {
+    /** support database */
     databaseComboBox.apply {
         DatabaseType.values().forEach {
             addItem(it.typeName)
         }
         selectedIndex = DatabaseType.MYSQL.index
     }
-}
 
-/**
- * Directory Text Init Value
- */
-private fun GeneratorDialog.initDirectoryText() {
-    directoryLabel.text = project.basePath
-}
-
-private fun GeneratorDialog.initTables() {
     setTables()
-}
 
-private fun GeneratorDialog.initSettings() {
+    directoryLabel.text = project.basePath
+
     userTextField.text = service.user
-    passwordTextField.text = getPasswordCredential()
+    passwordTextField.text = PasswordSafe.instance.getPassword(createCredentialAttributes())
     schemaTextField.text = service.schema
 }
 
@@ -115,22 +100,14 @@ private fun GeneratorDialog.connectActionPerformed() {
         this.password = password
     }.getTables()
     setTables()
-    // save connect config
-    setPasswordCredential(userTextField.text, passwordTextField.text)
+    /** save connect config */
+    val credentials = Credentials(userTextField.text, passwordTextField.text)
+    PasswordSafe.instance.set(createCredentialAttributes(), credentials)
     service.apply {
         jdbcURL = "jdbc:$database://${url.text}/${schemaTextField.text}"
         user = userTextField.text
         schema = schemaTextField.text
     }
-}
-
-private fun getPasswordCredential(): @Nullable String? {
-    return PasswordSafe.instance.getPassword(createCredentialAttributes())
-}
-
-private fun setPasswordCredential(user: String, password: String?) {
-    val credentials = Credentials(user, password)
-    PasswordSafe.instance.set(createCredentialAttributes(), credentials)
 }
 
 private fun createCredentialAttributes(): CredentialAttributes {
