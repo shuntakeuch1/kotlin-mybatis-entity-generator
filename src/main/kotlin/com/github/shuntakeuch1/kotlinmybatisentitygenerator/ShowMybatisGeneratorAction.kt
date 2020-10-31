@@ -1,5 +1,6 @@
 package com.github.shuntakeuch1.kotlinmybatisentitygenerator
 
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.services.MyProjectService
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.view.GeneratorDialog
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -9,7 +10,8 @@ class ShowMybatisGeneratorAction : AnAction() {
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.getData(PlatformDataKeys.PROJECT)
-        if (GeneratorDialog(project).showAndGet()) {
+        val config = MyProjectService.getInstance(project!!)
+        if (GeneratorDialog(project, config).showAndGet()) {
             println("end form")
         }
     }
