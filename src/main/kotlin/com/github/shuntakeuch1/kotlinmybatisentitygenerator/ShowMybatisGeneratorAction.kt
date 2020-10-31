@@ -9,8 +9,6 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys
 class ShowMybatisGeneratorAction : AnAction() {
 
     override fun actionPerformed(e: AnActionEvent) {
-
-
         val project = e.getData(PlatformDataKeys.PROJECT)
         val config = MyProjectService.getInstance(project!!)
         if (GeneratorDialog(project, config).showAndGet()) {
