@@ -4,9 +4,9 @@ class Column(
     val field: String,
     val type: String,
     val nullFlag: String,
-    val key: String,
+    val key: String?,
     val defaultFlag: String?,
-    val extra: String
+    val extra: String?
 ) {
     private val intRegex = Regex("int")
     private val charRegex = Regex("char")

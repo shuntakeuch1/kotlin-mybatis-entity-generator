@@ -23,7 +23,7 @@ public class GeneratorDialog extends DialogWrapper {
     private JButton folderSelectButton;
     private JLabel directoryLabel;
     private JButton createButton;
-    private JTable mysqlTable;
+    private JTable databaseTable;
     private JCheckBox nullableCheckBox;
     private final Project project;
     private final MyProjectService service;
@@ -77,8 +77,8 @@ public class GeneratorDialog extends DialogWrapper {
         return passwordTextField;
     }
 
-    protected JTable getMysqlTable() {
-        return mysqlTable;
+    protected JTable getDatabaseTable() {
+        return databaseTable;
     }
 
     protected JButton getCreateButton() {

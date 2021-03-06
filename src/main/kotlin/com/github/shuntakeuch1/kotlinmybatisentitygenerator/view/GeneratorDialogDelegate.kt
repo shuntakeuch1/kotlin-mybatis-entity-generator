@@ -4,7 +4,8 @@ package com.github.shuntakeuch1.kotlinmybatisentitygenerator.view
 
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.EntityGenerator
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity.Table
-import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository.MySQLRepository
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository.MySQLRepositoryImpl
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository.PostgreSQLRepositoryImpl
 import com.intellij.credentialStore.CredentialAttributes
 import com.intellij.credentialStore.Credentials
 import com.intellij.credentialStore.generateServiceName
@@ -52,7 +53,7 @@ private fun GeneratorDialog.initDialogViewSettings() {
         DatabaseType.values().forEach {
             addItem(it.typeName)
         }
-        selectedIndex = DatabaseType.MYSQL.index
+        selectedIndex = service.databaseTypeIndex ?: DatabaseType.MYSQL.index
     }
 
     setTables()
@@ -91,10 +92,14 @@ private fun GeneratorDialog.folderSelectActionPerformed() {
  */
 private fun GeneratorDialog.connectActionPerformed() {
     /** table connection */
-    val database = databaseComboBox.selectedItem
+    val databaseType = DatabaseType.fromInt(databaseComboBox.selectedIndex)
     val password = passwordTextField.text
-    tables = MySQLRepository().apply {
-        jdbcURL = "jdbc:$database://${url.text}/${schemaTextField.text}"
+    val dbAccess = when (databaseType) {
+        DatabaseType.POSTGRESQL -> PostgreSQLRepositoryImpl()
+        else -> MySQLRepositoryImpl()
+    }
+    tables = dbAccess.apply {
+        jdbcURL = "jdbc:${databaseType.typeName}://${url.text}/${schemaTextField.text}"
         user = userTextField.text
         schema = schemaTextField.text
         this.password = password
@@ -104,7 +109,8 @@ private fun GeneratorDialog.connectActionPerformed() {
     val credentials = Credentials(userTextField.text, passwordTextField.text)
     PasswordSafe.instance.set(createCredentialAttributes(), credentials)
     service.apply {
-        jdbcURL = "jdbc:$database://${url.text}/${schemaTextField.text}"
+        databaseTypeIndex = databaseType.index
+        jdbcURL = "jdbc:${databaseType.typeName}://${url.text}/${schemaTextField.text}"
         user = userTextField.text
         schema = schemaTextField.text
     }
@@ -131,15 +137,15 @@ private fun GeneratorDialog.setTables() {
         tableModel.addRow(arrayOf(true, table.name))
     }
 
-    mysqlTable.model = tableModel
-    mysqlTable.columnModel.getColumn(GenerateTableColumn.CHECKBOX.index).apply {
+    databaseTable.model = tableModel
+    databaseTable.columnModel.getColumn(GenerateTableColumn.CHECKBOX.index).apply {
         minWidth = CHECKBOX_MIN_WIDTH
         maxWidth = CHECKBOX_MAX_WIDTH
     }
 }
 
 /**
- * clear mysql table
+ * clear database table
  * with Cancel Action Button
  */
 private fun GeneratorDialog.clearTableActionPerformed() {
@@ -157,11 +163,11 @@ private fun GeneratorDialog.createActionPerformed() {
         targetDirectory = directoryLabel.text
     }
     var denyGenerateFileName = arrayOf<String>()
-    val maxCount = mysqlTable.rowCount - 1
+    val maxCount = databaseTable.rowCount - 1
     for (i in 0..maxCount) {
-        if (mysqlTable.model.getValueAt(i, GenerateTableColumn.CHECKBOX.index) == false) {
+        if (databaseTable.model.getValueAt(i, GenerateTableColumn.CHECKBOX.index) == false) {
             denyGenerateFileName +=
-                mysqlTable.model.getValueAt(i, GenerateTableColumn.TABLE_NAME.index).toString()
+                databaseTable.model.getValueAt(i, GenerateTableColumn.TABLE_NAME.index).toString()
         }
     }
     val targetTables = tables.filterNot { table ->

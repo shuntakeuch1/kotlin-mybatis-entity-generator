@@ -7,17 +7,17 @@ import java.sql.DriverManager
 /**
  * DB Access
  */
-class MySQLRepository {
-    lateinit var jdbcURL: String
-    lateinit var user: String
-    lateinit var password: String
-    lateinit var schema: String
+class MySQLRepositoryImpl : DBRepository {
+    override lateinit var jdbcURL: String
+    override lateinit var user: String
+    override lateinit var password: String
+    override lateinit var schema: String
 
-    fun getTables(): List<Table> {
+    override fun getTables(): List<Table> {
         Class.forName("com.mysql.jdbc.Driver")
         val conn = DriverManager.getConnection(jdbcURL, user, password)
         val statement = conn.createStatement()
-        var resultSet = statement.executeQuery("show tables;")
+        var resultSet = statement.executeQuery("show tables;".trimIndent())
         var tablesName = arrayOf<String>()
 
         while (resultSet.next()) {
@@ -25,7 +25,7 @@ class MySQLRepository {
             tablesName += table
         }
         val tables = tablesName.map {
-            resultSet = statement.executeQuery("show columns from $it;")
+            resultSet = statement.executeQuery("show columns from $it;".trimIndent())
             var columns = arrayOf<Column>()
             while (resultSet.next()) {
                 val column = Column(

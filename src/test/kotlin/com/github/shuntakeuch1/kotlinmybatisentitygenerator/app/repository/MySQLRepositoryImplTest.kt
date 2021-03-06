@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 @Disabled
-class MySQLRepositoryTest {
+class MySQLRepositoryImplTest {
 
     @Test
     fun testGetTable() {
-        val repository = MySQLRepository()
+        val repository = MySQLRepositoryImpl()
         assertEquals("", repository)
     }
 }
