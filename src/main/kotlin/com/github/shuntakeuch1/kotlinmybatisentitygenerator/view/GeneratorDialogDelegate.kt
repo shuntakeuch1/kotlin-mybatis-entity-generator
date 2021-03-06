@@ -92,14 +92,14 @@ private fun GeneratorDialog.folderSelectActionPerformed() {
  */
 private fun GeneratorDialog.connectActionPerformed() {
     /** table connection */
-    val database = databaseComboBox.selectedItem
+    val databaseType = DatabaseType.fromInt(databaseComboBox.selectedIndex)
     val password = passwordTextField.text
-    val dbAccess = when (DatabaseType.fromInt(databaseComboBox.selectedIndex)) {
+    val dbAccess = when (databaseType) {
         DatabaseType.POSTGRESQL -> PostgreSQLRepositoryImpl()
         else -> MySQLRepositoryImpl()
     }
     tables = dbAccess.apply {
-        jdbcURL = "jdbc:$database://${url.text}/${schemaTextField.text}"
+        jdbcURL = "jdbc:${databaseType.typeName}://${url.text}/${schemaTextField.text}"
         user = userTextField.text
         schema = schemaTextField.text
         this.password = password
@@ -109,7 +109,7 @@ private fun GeneratorDialog.connectActionPerformed() {
     val credentials = Credentials(userTextField.text, passwordTextField.text)
     PasswordSafe.instance.set(createCredentialAttributes(), credentials)
     service.apply {
-        jdbcURL = "jdbc:$database://${url.text}/${schemaTextField.text}"
+        jdbcURL = "jdbc:${databaseType.typeName}://${url.text}/${schemaTextField.text}"
         user = userTextField.text
         schema = schemaTextField.text
     }
