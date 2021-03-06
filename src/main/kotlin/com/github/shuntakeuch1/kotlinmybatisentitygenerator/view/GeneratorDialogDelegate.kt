@@ -137,15 +137,15 @@ private fun GeneratorDialog.setTables() {
         tableModel.addRow(arrayOf(true, table.name))
     }
 
-    mysqlTable.model = tableModel
-    mysqlTable.columnModel.getColumn(GenerateTableColumn.CHECKBOX.index).apply {
+    databaseTable.model = tableModel
+    databaseTable.columnModel.getColumn(GenerateTableColumn.CHECKBOX.index).apply {
         minWidth = CHECKBOX_MIN_WIDTH
         maxWidth = CHECKBOX_MAX_WIDTH
     }
 }
 
 /**
- * clear mysql table
+ * clear database table
  * with Cancel Action Button
  */
 private fun GeneratorDialog.clearTableActionPerformed() {
@@ -163,11 +163,11 @@ private fun GeneratorDialog.createActionPerformed() {
         targetDirectory = directoryLabel.text
     }
     var denyGenerateFileName = arrayOf<String>()
-    val maxCount = mysqlTable.rowCount - 1
+    val maxCount = databaseTable.rowCount - 1
     for (i in 0..maxCount) {
-        if (mysqlTable.model.getValueAt(i, GenerateTableColumn.CHECKBOX.index) == false) {
+        if (databaseTable.model.getValueAt(i, GenerateTableColumn.CHECKBOX.index) == false) {
             denyGenerateFileName +=
-                mysqlTable.model.getValueAt(i, GenerateTableColumn.TABLE_NAME.index).toString()
+                databaseTable.model.getValueAt(i, GenerateTableColumn.TABLE_NAME.index).toString()
         }
     }
     val targetTables = tables.filterNot { table ->
