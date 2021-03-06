@@ -26,6 +26,9 @@ private var tables: List<Table> = mutableListOf()
 private const val CHECKBOX_MIN_WIDTH = 40
 private const val CHECKBOX_MAX_WIDTH = 40
 private const val DB_CONNECT_PASSWORD_KEY = "kotlin_mybatis_generator"
+private const val DEFAULT_USER = "example"
+private const val DEFAULT_URL = "127.0.0.1"
+private const val DEFAULT_SCHEMA = "example"
 
 fun init(dialog: GeneratorDialog) {
     dialog.apply {
@@ -59,10 +62,10 @@ private fun GeneratorDialog.initDialogViewSettings() {
     setTables()
 
     directoryLabel.text = project.basePath
-
-    userTextField.text = service.user
+    urlTextField.text = service.url ?: DEFAULT_URL
+    userTextField.text = service.user ?: DEFAULT_USER
     passwordTextField.text = PasswordSafe.instance.getPassword(createCredentialAttributes())
-    schemaTextField.text = service.schema
+    schemaTextField.text = service.schema ?: DEFAULT_SCHEMA
 }
 
 /**
@@ -99,10 +102,10 @@ private fun GeneratorDialog.connectActionPerformed() {
         else -> MySQLRepositoryImpl()
     }
     tables = dbAccess.apply {
-        jdbcURL = "jdbc:${databaseType.typeName}://${url.text}/${schemaTextField.text}"
         user = userTextField.text
         schema = schemaTextField.text
         this.password = password
+        this.url = urlTextField.text
     }.getTables()
     setTables()
     /** save connect config */
@@ -110,9 +113,9 @@ private fun GeneratorDialog.connectActionPerformed() {
     PasswordSafe.instance.set(createCredentialAttributes(), credentials)
     service.apply {
         databaseTypeIndex = databaseType.index
-        jdbcURL = "jdbc:${databaseType.typeName}://${url.text}/${schemaTextField.text}"
         user = userTextField.text
         schema = schemaTextField.text
+        url = urlTextField.text
     }
 }
 

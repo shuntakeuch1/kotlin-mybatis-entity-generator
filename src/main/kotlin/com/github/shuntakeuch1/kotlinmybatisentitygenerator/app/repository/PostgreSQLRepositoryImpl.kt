@@ -2,19 +2,21 @@ package com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository
 
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity.Column
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity.Table
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.view.DatabaseType
 import java.sql.DriverManager
 
 /**
  * DB Access
  */
 class PostgreSQLRepositoryImpl : DBRepository {
-    override lateinit var jdbcURL: String
     override lateinit var user: String
     override lateinit var password: String
     override lateinit var schema: String
+    override lateinit var url: String
 
     override fun getTables(): List<Table> {
         Class.forName("org.postgresql.Driver")
+        val jdbcURL = "jdbc:${DatabaseType.POSTGRESQL.typeName}://$url/$schema"
         val conn = DriverManager.getConnection(jdbcURL, user, password)
         val statement = conn.createStatement()
         val tableNameQuery =
@@ -47,7 +49,7 @@ class PostgreSQLRepositoryImpl : DBRepository {
                   table_name = '$it';
                 """.trimIndent()
             )
-            var columns = arrayOf<Column>()
+            var columns = listOf<Column>()
             while (resultSet.next()) {
                 val column = Column(
                     field = resultSet.getString("column_name"),

@@ -1,6 +1,6 @@
 package com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity
 
-class Column(
+data class Column(
     val field: String,
     val type: String,
     val nullFlag: String,
