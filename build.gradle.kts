@@ -43,6 +43,7 @@ dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.10.0")
     implementation(kotlin("script-runtime"))
     implementation("mysql:mysql-connector-java:5.1.34")
+    implementation("org.postgresql:postgresql:42.1.4")
     implementation("com.google.guava:guava:29.0-jre")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")

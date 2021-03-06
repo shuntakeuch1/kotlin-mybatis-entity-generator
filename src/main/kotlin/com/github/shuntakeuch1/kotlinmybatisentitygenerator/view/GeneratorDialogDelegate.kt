@@ -4,7 +4,8 @@ package com.github.shuntakeuch1.kotlinmybatisentitygenerator.view
 
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.EntityGenerator
 import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity.Table
-import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository.MySQLRepository
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository.MySQLRepositoryImpl
+import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.repository.PostgreSQLRepositoryImpl
 import com.intellij.credentialStore.CredentialAttributes
 import com.intellij.credentialStore.Credentials
 import com.intellij.credentialStore.generateServiceName
@@ -93,7 +94,11 @@ private fun GeneratorDialog.connectActionPerformed() {
     /** table connection */
     val database = databaseComboBox.selectedItem
     val password = passwordTextField.text
-    tables = MySQLRepository().apply {
+    val dbAccess = when (DatabaseType.fromInt(databaseComboBox.selectedIndex)) {
+        DatabaseType.POSTGRESQL -> PostgreSQLRepositoryImpl()
+        else -> MySQLRepositoryImpl()
+    }
+    tables = dbAccess.apply {
         jdbcURL = "jdbc:$database://${url.text}/${schemaTextField.text}"
         user = userTextField.text
         schema = schemaTextField.text
