@@ -13,3 +13,16 @@ services:
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
      - 3306:3306
+
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: example
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: example
+      DATABASE_HOST: localhost
+    volumes:
+      - ./postgres/init:/docker-entrypoint-initdb.d
