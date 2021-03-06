@@ -53,7 +53,7 @@ private fun GeneratorDialog.initDialogViewSettings() {
         DatabaseType.values().forEach {
             addItem(it.typeName)
         }
-        selectedIndex = DatabaseType.MYSQL.index
+        selectedIndex = service.databaseTypeIndex ?: DatabaseType.MYSQL.index
     }
 
     setTables()
@@ -109,6 +109,7 @@ private fun GeneratorDialog.connectActionPerformed() {
     val credentials = Credentials(userTextField.text, passwordTextField.text)
     PasswordSafe.instance.set(createCredentialAttributes(), credentials)
     service.apply {
+        databaseTypeIndex = databaseType.index
         jdbcURL = "jdbc:${databaseType.typeName}://${url.text}/${schemaTextField.text}"
         user = userTextField.text
         schema = schemaTextField.text

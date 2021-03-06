@@ -13,6 +13,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 )
 class MyProjectService : PersistentStateComponent<MyProjectService> {
 
+    var databaseTypeIndex: Int? = null
     var jdbcURL: String? = null
     var user: String? = null
     var schema: String? = null
