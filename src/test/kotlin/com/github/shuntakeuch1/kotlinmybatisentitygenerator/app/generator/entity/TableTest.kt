@@ -9,7 +9,7 @@ class TableTest {
     fun testExecute() {
         val table = Table(
             name = "",
-            columns = arrayOf<Column>(
+            columns = listOf(
                 Column(
                     field = "",
                     type = "varchar(10)",

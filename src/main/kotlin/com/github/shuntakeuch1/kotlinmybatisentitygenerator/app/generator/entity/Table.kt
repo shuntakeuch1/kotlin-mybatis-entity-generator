@@ -1,8 +1,8 @@
 package com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity
 
-class Table(
+data class Table(
     val name: String,
-    val columns: Array<Column>
+    val columns: List<Column>
 ) {
     fun toColumnAllString(isAllNullableOption: Boolean): String {
         return columns.map { column ->

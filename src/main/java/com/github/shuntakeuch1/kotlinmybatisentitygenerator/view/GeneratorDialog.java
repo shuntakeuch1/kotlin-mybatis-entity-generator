@@ -61,7 +61,7 @@ public class GeneratorDialog extends DialogWrapper {
         return cancelButton;
     }
 
-    protected JTextField getUrl() {
+    protected JTextField getUrlTextField() {
         return url;
     }
 
