@@ -15,6 +15,7 @@ class MySQLRepositoryImplTest {
             url = "localhost"
             user = "root"
             schema = "example"
+            port = "3306"
             password = "root"
         }.getTables()
 
