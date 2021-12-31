@@ -25,6 +25,9 @@ public class GeneratorDialog extends DialogWrapper {
     private JButton createButton;
     private JTable databaseTable;
     private JCheckBox nullableCheckBox;
+    private JLabel portLabel;
+    private JLabel port;
+    private JTextField portTextField;
     private final Project project;
     private final MyProjectService service;
 
