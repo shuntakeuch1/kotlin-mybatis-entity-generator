@@ -3,8 +3,13 @@
 # kotlin-mybatis-entity-generator Changelog
 
 ## [Unreleased]
+### Added
 
 ## [0.0.9]
+### Added
+- Added Connection Persistence
+- Support Postgresql
+- Support Windows
 
 ## [0.0.8]
 ### Changed
