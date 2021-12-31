@@ -3,6 +3,8 @@
 # kotlin-mybatis-entity-generator Changelog
 
 ## [Unreleased]
+
+## [0.0.10]
 ### Added
 
 ## [0.0.9]
