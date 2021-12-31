@@ -119,6 +119,7 @@ private fun GeneratorDialog.connectActionPerformed() {
         user = userTextField.text
         schema = schemaTextField.text
         url = urlTextField.text
+        port = portTextField.text
     }
 }
 
