@@ -25,6 +25,10 @@ public class GeneratorDialog extends DialogWrapper {
     private JButton createButton;
     private JTable databaseTable;
     private JCheckBox nullableCheckBox;
+    private JLabel portLabel;
+    private JLabel port;
+    private JTextField portTextField;
+    private JLabel DBLabel;
     private final Project project;
     private final MyProjectService service;
 
@@ -75,6 +79,10 @@ public class GeneratorDialog extends DialogWrapper {
 
     protected JTextField getPasswordTextField() {
         return passwordTextField;
+    }
+
+    protected JTextField getPortTextField() {
+        return portTextField;
     }
 
     protected JTable getDatabaseTable() {

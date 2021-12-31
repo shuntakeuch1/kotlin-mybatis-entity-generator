@@ -13,6 +13,7 @@ class MySQLRepositoryImpl : DBRepository {
     override lateinit var password: String
     override lateinit var schema: String
     override lateinit var url: String
+    override lateinit var port: String
 
     companion object {
         private const val JDBC_CLASS_NAME = "com.mysql.jdbc.Driver"
@@ -26,7 +27,7 @@ class MySQLRepositoryImpl : DBRepository {
 
     override fun getTables(): List<Table> {
         Class.forName(JDBC_CLASS_NAME)
-        val jdbcURL = "jdbc:${DatabaseType.MYSQL.typeName}://$url/$schema"
+        val jdbcURL = "jdbc:${DatabaseType.MYSQL.typeName}://$url:$port/$schema"
         val conn = DriverManager.getConnection(jdbcURL, user, password)
         val statement = conn.createStatement()
         val tableResultSet = statement.executeQuery("show tables;".trimIndent())
