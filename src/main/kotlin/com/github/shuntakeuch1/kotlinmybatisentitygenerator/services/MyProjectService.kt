@@ -16,6 +16,7 @@ class MyProjectService : PersistentStateComponent<MyProjectService> {
     var databaseTypeIndex: Int? = null
     var user: String? = null
     var schema: String? = null
+    var port: String? = null
     var url: String? = null
 
     override fun getState(): MyProjectService? {

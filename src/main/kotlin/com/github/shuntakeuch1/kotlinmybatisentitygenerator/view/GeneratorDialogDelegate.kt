@@ -29,6 +29,7 @@ private const val DB_CONNECT_PASSWORD_KEY = "kotlin_mybatis_generator"
 private const val DEFAULT_USER = "example"
 private const val DEFAULT_URL = "127.0.0.1"
 private const val DEFAULT_SCHEMA = "example"
+private const val DEFAULT_PORT = "3306"
 
 fun init(dialog: GeneratorDialog) {
     dialog.apply {
@@ -66,6 +67,7 @@ private fun GeneratorDialog.initDialogViewSettings() {
     userTextField.text = service.user ?: DEFAULT_USER
     passwordTextField.text = PasswordSafe.instance.getPassword(createCredentialAttributes())
     schemaTextField.text = service.schema ?: DEFAULT_SCHEMA
+    portTextField.text = service.port ?: DEFAULT_PORT
 }
 
 /**
@@ -99,11 +101,12 @@ private fun GeneratorDialog.connectActionPerformed() {
     val password = passwordTextField.text
     val dbAccess = when (databaseType) {
         DatabaseType.POSTGRESQL -> PostgreSQLRepositoryImpl()
-        else -> MySQLRepositoryImpl()
+        DatabaseType.MYSQL -> MySQLRepositoryImpl()
     }
     tables = dbAccess.apply {
-        user = userTextField.text
-        schema = schemaTextField.text
+        this.user = userTextField.text
+        this.schema = schemaTextField.text
+        this.port = portTextField.text
         this.password = password
         this.url = urlTextField.text
     }.getTables()

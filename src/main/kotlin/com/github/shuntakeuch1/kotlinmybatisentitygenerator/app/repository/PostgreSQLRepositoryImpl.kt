@@ -13,10 +13,11 @@ class PostgreSQLRepositoryImpl : DBRepository {
     override lateinit var password: String
     override lateinit var schema: String
     override lateinit var url: String
+    override lateinit var port: String
 
     override fun getTables(): List<Table> {
         Class.forName("org.postgresql.Driver")
-        val jdbcURL = "jdbc:${DatabaseType.POSTGRESQL.typeName}://$url/$schema"
+        val jdbcURL = "jdbc:${DatabaseType.POSTGRESQL.typeName}://$url:$port/$schema"
         val conn = DriverManager.getConnection(jdbcURL, user, password)
         val statement = conn.createStatement()
         val tableNameQuery =

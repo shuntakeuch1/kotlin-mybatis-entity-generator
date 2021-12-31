@@ -7,5 +7,6 @@ interface DBRepository {
     var password: String
     var schema: String
     var url: String
+    var port: String
     fun getTables(): List<Table>
 }

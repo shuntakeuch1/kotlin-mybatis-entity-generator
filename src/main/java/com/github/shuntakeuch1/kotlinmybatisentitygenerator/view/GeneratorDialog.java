@@ -80,6 +80,10 @@ public class GeneratorDialog extends DialogWrapper {
         return passwordTextField;
     }
 
+    protected JTextField getPortTextField() {
+        return portTextField;
+    }
+
     protected JTable getDatabaseTable() {
         return databaseTable;
     }
