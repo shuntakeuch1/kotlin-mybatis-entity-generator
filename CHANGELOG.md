@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.0.11]
+### Added
+- Support intellij 2021
+
 ## [0.0.10]
 ### Added
 - Any Port
