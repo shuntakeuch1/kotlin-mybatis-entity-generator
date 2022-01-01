@@ -5,7 +5,7 @@
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/14770-kotlin-mybatis-entity-generator.svg)](https://plugins.jetbrains.com/plugin/14770-kotlin-mybatis-entity-generator)
 
 <!-- Plugin description -->
-Generate a mapping class for a single table.
+Generate a mapping class file for a single table.
 
 <!-- Plugin description end -->
 
