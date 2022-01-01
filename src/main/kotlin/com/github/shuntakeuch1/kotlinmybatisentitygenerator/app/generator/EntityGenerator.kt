@@ -4,6 +4,7 @@ import com.github.shuntakeuch1.kotlinmybatisentitygenerator.app.generator.entity
 import com.google.common.base.CaseFormat
 import java.io.File
 import java.io.PrintWriter
+import java.util.Locale
 
 class EntityGenerator {
     var targetDirectory = "outputFile" // project root
@@ -37,7 +38,7 @@ class EntityGenerator {
 
             if (targetDirectory.contains(indexString)) {
                 val index = targetDirectory.indexOf(indexString)
-                val osName = System.getProperty(operationSystemName).toLowerCase()
+                val osName = System.getProperty(operationSystemName).lowercase(Locale.getDefault())
                 val packageList = if (osName.startsWith(windowsString)) {
                     targetDirectory.substring(index + indexString.length).split("￥")
                 } else {
