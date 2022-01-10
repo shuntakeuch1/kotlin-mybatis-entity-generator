@@ -31,6 +31,7 @@ private const val DEFAULT_USER = "example"
 private const val DEFAULT_URL = "127.0.0.1"
 private const val DEFAULT_SCHEMA = "example"
 private const val DEFAULT_PORT = "3306"
+private val LOG = logger<GeneratorDialog>()
 
 fun init(dialog: GeneratorDialog) {
     dialog.apply {
@@ -130,15 +131,6 @@ private fun GeneratorDialog.connectActionPerformed() {
             "Error",
             AllIcons.General.ErrorDialog
         )
-    }
-}
-
-private val LOG = logger<MyPluginFunctionality>()
-
-class MyPluginFunctionality {
-
-    fun someMethod() {
-        LOG.info("someMethod() was called")
     }
 }
 
